@@ -1,0 +1,196 @@
+// ======== ================== ============ //
+// ============== ** MODAL PLANT ** ======= //
+// ======== ================== ============ //
+
+.modal-plant {
+  background-color: rgb(50 50 50 / 60%);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: scroll;
+}
+
+.content-modal {
+  margin-top: auto;
+  padding: 1rem;
+  width: 90%;
+  background-color: #ffffff;
+  color: darkslategrey;
+  z-index: 11;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 0 2rem 2rem 2rem;
+  @media screen and (min-width: 900px) {
+    // margin-top: 0;
+  }
+
+  h2 {
+    font-size: 2em;
+    line-height: 1;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid grey;
+    padding-bottom: 1rem;
+  }
+
+  .plant-data-container {
+    @media screen and (min-width: 900px) {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      & > div {
+        width: 48%;
+      }
+    }
+  }
+
+  //* ==== BOUTON FERMETURE ==== //
+  .close-btn {
+    position: relative;
+    right: 50%;
+    left: 50%;
+    top: auto;
+    z-index: 101;
+    background-color: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    transition: 0.1s;
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+
+  .close-btn svg {
+    // width: fit-content;
+    height: 50px;
+  }
+
+  //* ==== WRAPPER IMG NOTIF ==== //
+  .wrapper-img-notification {
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    max-width: 373px;
+    @media screen and (min-width: 900px) {
+      margin: 0;
+    }
+    img {
+      border-radius: 8px;
+      max-width: 100%;
+      max-height: 30rem;
+      width: cover;
+      @media screen and (min-width: 900px) {
+        max-height: 35rem;
+        // margin: 0 2rem;
+      }
+    }
+
+    //* ==== NOTIF AROSAGE ==== //
+    .notification-watering {
+      position: absolute;
+      top: 0.2rem;
+      right: 0.2rem;
+      margin: 0 auto;
+      padding: 0.2rem 0.5rem;
+      background-color: rgba(255, 255, 255, 0.808);
+      border: 2px solid #007ac5;
+      border-radius: 8px;
+      width: fit-content;
+      font-size: 0.7em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .notification-watering svg {
+      color: rgb(14, 136, 217);
+      fill: rgb(139, 220, 255);
+    }
+  }
+
+  //* ==== PLANT DESCRIPTION ==== //
+  .plant-description-container {
+    h3 {
+      font-style: italic;
+    }
+
+    p {
+      text-align: left;
+      font-size: 0.8em;
+      margin-bottom: 1rem;
+    }
+
+    .plant-status {
+      border-top: 1px solid rgb(192, 186, 186);
+      padding: 1rem 0;
+      span {
+        font-size: 1.3rem;
+        display: block;
+        line-height: 1.8;
+        text-align: left;
+      }
+    }
+  }
+
+  //* ==== BOUTONS ACTIONS ==== //
+  .wrapper-btn-action {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+
+    @media screen and (min-width: 900px) {
+      flex-direction: row;
+    }
+
+    .btn-action {
+      width: 80%;
+      max-width: 300px;
+      justify-content: center;
+      background-color: #ffffff;
+      border: none;
+      color: #1b3b2c;
+      cursor: pointer;
+      margin: 0.5rem;
+      right: 0px;
+      bottom: 0px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid #1b3b2c;
+      border-radius: 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      @media screen and (min-width: 900px) {
+        margin-left: 0;
+      }
+    }
+
+    .btn-action:hover {
+      fill: #6aca9f;
+      color: #6aca9f;
+      background-color: #1b3b2c;
+    }
+
+    .btn-action svg {
+      transform: scale(1.5);
+      fill: #ffffff;
+    }
+  }
+}
+
+.hide {
+  display: none;
+}

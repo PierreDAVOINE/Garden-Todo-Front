@@ -1,0 +1,41 @@
+// ============************============//
+// ============Mentions légales========//
+// ============************============//
+
+.notice,
+.notice__content {
+  padding: 1.5rem;
+
+  @media screen and (min-width: 1400px) {
+    padding: 3rem;
+  }
+}
+
+.notice {
+  @media screen and (min-width: 900px) {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  &__img {
+    background: url('https://res.cloudinary.com/dtzbumqvq/image/upload/v1683285723/pexels-madison-inouye-1054016_w57xaw.jpg') no-repeat center/cover;
+    width: 100%;
+    height: 20rem;
+    border-radius: 10px 10px 0 0;
+  }
+
+  &__content {
+    background-color: #799f7a;
+    color: white;
+    border-radius: 0 0 10px 10px;
+
+    h1 {
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    p {
+      margin-top: 1rem;
+    }
+  }
+}

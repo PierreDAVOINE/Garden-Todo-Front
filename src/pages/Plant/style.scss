@@ -1,0 +1,236 @@
+// ======== ================== ============ //
+// ========    Partie Plante  ============ //
+// ======== ================== ============ //
+.plant {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 95%;
+}
+
+.plant__latin__name {
+  font-size: 1rem;
+  font-style: italic;
+  text-align: center;
+}
+
+.plant__description.open {
+  display: none;
+}
+.plant img {
+  width: 100%;
+  display: block;
+  border-radius: 10px;
+  // max-width: 500px;
+  // max-height: 500px;
+
+}
+.desktop__fiche__plante__1{
+justify-content: center;
+}
+
+// }
+// ======== ================== ============ //
+// ========    Partie Caracs ============ //
+// ======== ================== ============ //
+
+.plant__caracs {
+  padding: 2rem;
+  background-color: #799f7a;
+  color: white;
+  border-radius: 10px;
+  font-size: 1.3rem;
+  max-height: 20vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.plant__caracs.open {
+  max-height: none;
+}
+
+.plant__caracs button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: none;
+  background-color: #799f7a;
+  color: #133514;
+}
+.plant__caracs button:hover {
+  cursor: pointer;
+}
+
+.plant__caracs p {
+  font-size: 1rem;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+// ======== ================== ============ //
+// ========    Partie Bouton Ajouter ============ //
+// ======== ================== ============ //
+
+.plant__button {
+  align-items: center;
+  gap: 1rem;
+  border: none;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto;
+  font-size: 1.5rem;
+  padding: 1rem;
+  border-style: double;
+}
+
+.plant__button:hover {
+  color: white;
+  background-color: #799f7a;
+  border-radius: 10px;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+// ======== ================== ============ //
+// ========    MEDIA QUERY POUR DESKTOP   ============ //
+// ======== ================== ============ //
+
+//! 1024 px +
+
+@media screen and (min-width: 1024px) {
+  .plant {
+    width: 80%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .plant {
+    h1 {
+      text-align: center;
+      text-decoration: underline;
+      color: white;
+      margin-bottom: 2rem;
+    }
+    p {
+      color: white;
+    }
+  }
+  .desktop__fiche__plante__principale {
+    display: flex;
+
+
+    //! ici
+
+    flex-wrap: wrap;
+    //! ici
+    width: 100%;
+  }
+
+  .desktop__fiche__plante__1 {
+    //! ici
+    // width: 50%;
+    width: 55%;
+
+    //! ici
+    padding: 0 2rem;
+
+    
+  }
+  .plant__caracs {
+    display: flex;
+    flex-direction: column;
+    //! ici
+    // width: 90%;
+    width: 40%;
+  max-height: fit-content;
+    
+    //! ici
+    text-align: left;
+    border: 1px solid #133514;
+    border-style: dashed;
+    margin: 0rem 2rem 0 0;
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  .plant {
+    background-color: #799f7a;
+    border-radius: 10px;
+    flex-direction: column;
+    display: flex;
+    align-items: left;
+  }
+
+  .desktop__fiche__plante__1 img {
+    border-radius: 10px;
+  }
+
+  .plant__caracs button {
+    display: none;
+  }
+  .plant__description {
+    order: 3;
+    width: 100%;
+    margin: 2rem;
+  }
+}
+
+//! 1200 px +
+
+@media screen and (min-width: 1200px) {
+  .plant__caracs {
+    // max-height: 500px;
+    p {
+      font-size: 1.1rem;
+    }
+  }
+}
+
+//! 1400 px +
+
+@media screen and (min-width: 1400px) {
+  .plant__caracs {
+    width: 40%;
+    max-width: fit-content;
+    // max-height: 500px;
+    p {
+      font-size: 1.3rem;
+    }
+  }
+}
+
+//! 1650 +
+
+@media screen and (min-width: 1650px) {
+  .desktop__fiche__plante__principale {
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: nowrap;
+    
+  }
+ 
+  .plant__caracs {
+    display: flex;
+    flex-direction: row;
+    text-align: justify;
+    width: 100%;
+  }
+  .plant__caracs__column__1 {
+    p {
+      margin-right: 2rem;
+    }
+  }
+
+  .plant__description {
+    padding: 2rem;
+    word-wrap: break-word;
+  }
+  .desktop__fiche__plante__1{
+    margin-bottom: 2rem;
+  }
+}

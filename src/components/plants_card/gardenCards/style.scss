@@ -1,0 +1,61 @@
+.garden {
+  .plant-card {
+    height: auto;
+    padding-bottom: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    h3 {
+      line-height: normal;
+      color: darkslategrey;
+    }
+
+    .wrapper-btn {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .garden-plant-btn {
+      background-color: #ffffff;
+      border: none;
+      color: #1b3b2c;
+      cursor: pointer;
+      margin: 0.5rem;
+      right: 0px;
+      bottom: 0px;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      border: 1px solid #1b3b2c;
+      border-radius: 8px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-align: center;
+      width: 160px;
+    }
+
+    .garden-plant-btn:hover {
+      fill: #6aca9f;
+      color: #6aca9f;
+      background-color: #1b3b2c;
+    }
+
+    .garden-plant-btn svg {
+      transform: scale(1.5);
+      fill: #ffffff;
+    }
+
+    span {
+      fill: #ffffff;
+      color: #6aca9f;
+    }
+  }
+
+  .garden-plant-card-img {
+    height: 15rem;
+  }
+
+  .hide {
+    display: none;
+  }
+}
