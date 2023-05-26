@@ -1,8 +1,8 @@
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { Check, MinusCircle, PlusCircle } from 'react-feather';
+import { Check, PlusCircle } from 'react-feather';
 import { axiosInstance } from '../../utils/axios';
-import { HandlePlantProps } from "../../../src/@types/plants";
+import { HandlePlantProps } from '../../../src/@types/plants';
 import { useEffect, useState } from 'react';
 
 function PlantCard({
@@ -11,7 +11,7 @@ function PlantCard({
   setHasPlant,
   hasPlant,
   userId,
-  addNewNotification
+  addNewNotification,
 }: HandlePlantProps) {
   // Un state pour vérifier que la plante n'est pas déjà dans le jardin
   const [isAddableToGarden, setIsAddableToGarden] = useState(true);
@@ -41,7 +41,6 @@ function PlantCard({
       } else {
         const plantListFromUserGarden = [...hasPlant, response.data];
         setHasPlant(plantListFromUserGarden);
-
       }
     } else {
       addNewNotification(`Plante ajoutée au jardin !`, false);
@@ -87,8 +86,7 @@ function PlantCard({
             PLANTE DEJA DANS MON JARDIN
           </button>
         </a>
-      )
-      }
+      )}
     </div>
   );
 }
