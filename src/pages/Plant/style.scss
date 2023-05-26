@@ -12,27 +12,51 @@
   font-size: 1rem;
   font-style: italic;
   text-align: center;
+  font-family: 'Playfair Display', 'Roboto', serif;
+  letter-spacing: 1px;
 }
 
 .plant__description.open {
   display: none;
+  align-items: center;
 }
+
 .plant img {
-  width: 100%;
+  max-width: 100%;
   display: block;
   border-radius: 10px;
   // max-width: 500px;
   // max-height: 500px;
 
 }
-.desktop__fiche__plante__1{
-justify-content: center;
+
+.desktop__fiche__plante__principale {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0rem 2rem 0 2rem;
+
+}
+
+.desktop__fiche__plante__1 {
+  justify-content: center;
+  align-items: center;
 }
 
 // }
 // ======== ================== ============ //
 // ========    Partie Caracs ============ //
 // ======== ================== ============ //
+
+.plant__caracs__column__1 p:nth-child(odd),
+.plant__caracs__column p:nth-child(odd) {
+  background-color: #8eac8f;
+}
+
+.plant__caracs__column,
+.plant__caracs__column__1 {
+  width: 100%;
+}
 
 .plant__caracs {
   padding: 2rem;
@@ -43,6 +67,12 @@ justify-content: center;
   max-height: 20vh;
   position: relative;
   overflow: hidden;
+  width: 100%;
+}
+
+.plant__caracs_specs {
+  font-weight: 700;
+  color: #26573c;
 }
 
 .plant__caracs.open {
@@ -57,17 +87,20 @@ justify-content: center;
   background-color: #799f7a;
   color: #133514;
 }
+
 .plant__caracs button:hover {
   cursor: pointer;
 }
 
 .plant__caracs p {
   font-size: 1rem;
+  padding: 0 1rem;
 }
 
 h1 {
   font-size: 2rem;
   font-weight: 700;
+  text-align: center;
 }
 
 // ======== ================== ============ //
@@ -85,6 +118,7 @@ h1 {
   font-size: 1.5rem;
   padding: 1rem;
   border-style: double;
+  border-radius: 10px;
 }
 
 .plant__button:hover {
@@ -101,11 +135,11 @@ h1 {
 
 //! 1024 px +
 
-@media screen and (min-width: 1024px) {
-  .plant {
-    width: 80%;
-  }
-}
+// @media screen and (min-width: 1024px) {
+//   .plant {
+//     width: 80%;
+//   }
+// }
 
 @media screen and (min-width: 1024px) {
   .plant {
@@ -114,45 +148,54 @@ h1 {
       text-decoration: underline;
       color: white;
       margin-bottom: 2rem;
+      max-width: 95%;
     }
+
     p {
       color: white;
     }
+
+    .plant__caracs__column,
+    .plant__caracs__column__1 {
+      width: 50%;
+    }
   }
+
   .desktop__fiche__plante__principale {
     display: flex;
-
-
-    //! ici
-
-    flex-wrap: wrap;
-    //! ici
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    justify-content: center;
   }
 
   .desktop__fiche__plante__1 {
-    //! ici
-    // width: 50%;
-    width: 55%;
 
-    //! ici
+
+    align-items: center;
     padding: 0 2rem;
 
-    
+
   }
+
   .plant__caracs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    text-align: justify;
+    justify-content: center;
+    // display: flex;
+    // flex-direction: column;
     //! ici
     // width: 90%;
-    width: 40%;
-  max-height: fit-content;
-    
+    width: 95%;
+    max-height: fit-content;
+
     //! ici
     text-align: left;
     border: 1px solid #133514;
     border-style: dashed;
-    margin: 0rem 2rem 0 0;
+    margin: 0rem 2rem 0 2rem;
+
     p {
       font-size: 0.9rem;
     }
@@ -163,19 +206,22 @@ h1 {
     border-radius: 10px;
     flex-direction: column;
     display: flex;
-    align-items: left;
+    align-items: center;
   }
 
   .desktop__fiche__plante__1 img {
     border-radius: 10px;
+    max-width: 100%;
   }
 
   .plant__caracs button {
     display: none;
+    margin: 0rem 2rem 0 2rem;
   }
+
   .plant__description {
     order: 3;
-    width: 100%;
+    width: 95%;
     margin: 2rem;
   }
 }
@@ -184,6 +230,7 @@ h1 {
 
 @media screen and (min-width: 1200px) {
   .plant__caracs {
+
     // max-height: 500px;
     p {
       font-size: 1.1rem;
@@ -191,18 +238,19 @@ h1 {
   }
 }
 
-//! 1400 px +
+// //! 1400 px +
 
-@media screen and (min-width: 1400px) {
-  .plant__caracs {
-    width: 40%;
-    max-width: fit-content;
-    // max-height: 500px;
-    p {
-      font-size: 1.3rem;
-    }
-  }
-}
+// @media screen and (min-width: 1400px) {
+//   .plant__caracs {
+//     width: 40%;
+//     max-width: fit-content;
+
+//     // max-height: 500px;
+//     p {
+//       font-size: 1.3rem;
+//     }
+//   }
+// }
 
 //! 1650 +
 
@@ -211,15 +259,18 @@ h1 {
     flex-direction: column;
     align-items: center;
     flex-wrap: nowrap;
-    
+
   }
- 
+
   .plant__caracs {
     display: flex;
     flex-direction: row;
     text-align: justify;
-    width: 100%;
+    justify-content: center;
+    width: 95%;
+    margin: 0rem 2rem 0 2rem;
   }
+
   .plant__caracs__column__1 {
     p {
       margin-right: 2rem;
@@ -230,7 +281,8 @@ h1 {
     padding: 2rem;
     word-wrap: break-word;
   }
-  .desktop__fiche__plante__1{
+
+  .desktop__fiche__plante__1 {
     margin-bottom: 2rem;
   }
 }

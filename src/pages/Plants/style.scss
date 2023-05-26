@@ -1,6 +1,12 @@
 .plants {
   max-width: 85vw;
   margin: 0 auto;
+
+  h1 {
+    background-color: #eee;
+    border-radius: 10px 10px 0 0;
+    font-size: 1.5em;
+  }
 }
 
 .plants a {
@@ -63,7 +69,7 @@
 .plant-form {
   padding: 1rem;
   background-color: #eee;
-  border-radius: 8px;
+  border-radius: 0 0 8px 8px;
 }
 
 .plant-form h2 {
@@ -207,10 +213,26 @@ details>summary::-webkit-details-marker {
 // ======== ================== ============ //
 
 @media screen and (max-width: 840px) {
+  .plants {
+    max-width: 95%;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .plant-form {
+    max-width: 100%;
+    overflow: hidden;
+
+    .plant-main-searchbyname {
+      max-width: 100%;
+    }
+  }
+
   .plant-results {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    max-width: 100%;
   }
 
   .plant-results h2 {
@@ -222,5 +244,6 @@ details>summary::-webkit-details-marker {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
+    max-width: 100%;
   }
 }

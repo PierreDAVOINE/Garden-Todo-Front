@@ -95,4 +95,18 @@
   .add-plant-btn {
     z-index: 99;
   }
+
+  .in-garden {
+    background-color: #e5f5e6;
+  }
+
+  .in-garden svg {
+    fill-opacity: 0;
+  }
+}
+
+@media screen and (max-width: 740px) {
+  .plant-card {
+    max-width: 95%;
+  }
 }

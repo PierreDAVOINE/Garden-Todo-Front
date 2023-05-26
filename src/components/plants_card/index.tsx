@@ -1,8 +1,9 @@
 import './style.scss';
 import { Link } from 'react-router-dom';
-import { PlusCircle } from 'react-feather';
+import { Check, MinusCircle, PlusCircle } from 'react-feather';
 import { axiosInstance } from '../../utils/axios';
 import { HandlePlantProps } from "../../../src/@types/plants";
+import { useEffect, useState } from 'react';
 
 function PlantCard({
   plant,
@@ -12,11 +13,23 @@ function PlantCard({
   userId,
   addNewNotification
 }: HandlePlantProps) {
+  // Un state pour vérifier que la plante n'est pas déjà dans le jardin
+  const [isAddableToGarden, setIsAddableToGarden] = useState(true);
+
+  // un useEffect pour vérifier que la plante n'est pas déjà dans le jardin au démarrage de la page
+  useEffect(() => {
+    const plantAlreadyHere = hasPlant.find((p) => p.plant_id === plant.id);
+    if (plantAlreadyHere) {
+      setIsAddableToGarden(false);
+    }
+  }, [hasPlant]);
+
   // handleAddPlant() permet l'ajout d'une plante au jardin
   const handleAddPlant = async () => {
     // Si la plante n'est pas encore présente dans le jardin alors on l'ajoute
     const plantAlreadyHere = hasPlant.find((p) => p.plant_id === plant.id);
     if (!plantAlreadyHere) {
+      //setIsAddableToGarden(false);
       const response = await axiosInstance.post(`/garden/${userId}`, {
         plantId: plant.id,
       });
@@ -28,11 +41,11 @@ function PlantCard({
       } else {
         const plantListFromUserGarden = [...hasPlant, response.data];
         setHasPlant(plantListFromUserGarden);
+
       }
     } else {
-      //const plantListFromUserGarden = [...hasPlant, response.data]; // ne peut pas accéder à response qui est déclaré dans la condition au dessus
-      //setHasPlant(plantListFromUserGarden);
       addNewNotification(`Plante ajoutée au jardin !`, false);
+      setIsAddableToGarden(true);
     }
   };
 
@@ -53,7 +66,7 @@ function PlantCard({
       {
         //ajout du bouton pour rajouter une plante à mon espace jardin SI je suis connecté
       }
-      {isLogged && (
+      {isLogged && isAddableToGarden && (
         <button
           className="add-plant-btn"
           title="ajouter une plante à mon espace vert"
@@ -63,6 +76,19 @@ function PlantCard({
           AJOUTER À MON JARDIN
         </button>
       )}
+
+      {isLogged && !isAddableToGarden && (
+        <a href="/mon-espace-vert/">
+          <button
+            className="add-plant-btn in-garden"
+            title="Retirer une plante à mon espace vert"
+          >
+            <Check />
+            PLANTE DEJA DANS MON JARDIN
+          </button>
+        </a>
+      )
+      }
     </div>
   );
 }

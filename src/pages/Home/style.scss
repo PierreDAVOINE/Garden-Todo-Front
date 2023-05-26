@@ -7,7 +7,12 @@
   flex-direction: column;
   align-items: center;
   margin: 0 1rem 1rem 1rem;
-  min-height: 780px;
+  min-height: 810px;
+
+  h1 {
+    font-size: 1.5em;
+    margin-top: 1rem;
+  }
 
   a {
     color: #296047;
@@ -46,7 +51,6 @@ $screen-size-big: 1980px;
   border-radius: 10px;
 
 
-
   @media screen and (min-width: $screen-size) {
     display: flex;
     align-items: stretch;
@@ -72,11 +76,6 @@ $screen-size-big: 1980px;
       border-top-right-radius: 0px;
       width: 50%;
     }
-  }
-
-  h1 {
-    font-size: 2rem;
-    font-weight: 700;
   }
 
   h1,

@@ -113,7 +113,7 @@ function App() {
     setTimeout(() => {
       setNotifications([])
       setnotificationIsOn(false)
-    }, 5000);
+    }, 5200);
     setNotifications(notifyArray); // On ajoute l'ancien et le nouveau contenu au state
   }
 

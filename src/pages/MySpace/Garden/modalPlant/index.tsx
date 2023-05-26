@@ -55,6 +55,7 @@ function ModalPlant({
           }
           : p
       );
+      addNewNotification("La plante a bien été ajoutée", false);
       console.log(newPlantList)
       // TODO : vérifier après merge erreur typage newPlantList ?
       setHasPlant(newPlantList);

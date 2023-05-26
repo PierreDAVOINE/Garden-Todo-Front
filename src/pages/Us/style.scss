@@ -79,6 +79,10 @@
         background-color: #1b3b2c;
     }
 
+    .hide {
+        display: none;
+    }
+
     .wrapper-content {
         display: flex;
         align-items: center;
@@ -153,9 +157,7 @@
     }
 }
 
-.hide {
-    display: none;
-}
+
 
 @media screen and (max-width: 2020px) {
     .us {
@@ -176,9 +178,6 @@
     }
 
 }
-
-
-
 
 @media screen and (max-width: 1624px) {
 
@@ -239,6 +238,7 @@
 @media screen and (max-width: 840px) {
     .us {
         flex-direction: column;
+        max-width: 100%;
 
         .wrapper-team {
             display: flex;
@@ -254,7 +254,7 @@
         }
 
         .content img {
-            max-width: 100%;
+            max-width: 95%;
         }
 
     }

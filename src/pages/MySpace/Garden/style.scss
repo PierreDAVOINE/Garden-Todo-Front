@@ -10,9 +10,11 @@
   border-radius: 8px;
   padding: 1rem 1.5rem 1.5rem 1.5rem;
   flex-grow: 1;
+
   @media screen and (min-width: 1500px) {
     max-width: 45%;
   }
+
   @media screen and (min-width: 1800px) {
     max-width: 55%;
   }
@@ -32,6 +34,7 @@
 
   h2 {
     text-align: center;
+    font-size: 1.5em;
   }
 
   .wrapper-plants {
@@ -47,6 +50,7 @@
   .plant-card {
     max-width: 270px;
     height: 400px;
+
     @media screen and (min-width: 620) {
       max-width: 240px;
     }

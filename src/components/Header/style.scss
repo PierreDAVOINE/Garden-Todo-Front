@@ -23,10 +23,12 @@
   //TODO: menu mobil sur page entière
   &__mobile-link-nav {
     background-color: #fff;
-    position: absolute;
+    position: fixed;
     left: 0;
     right: 0;
+    /*top: 0;*/
     height: 100%;
+    bottom: 0;
     z-index: 2;
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
@@ -127,6 +129,8 @@ header li {
 
 .hamburger {
   display: inline-block;
+  position: sticky;
+  z-index: 4;
   cursor: pointer;
   transition-property: opacity, filter;
   transition-duration: 0.15s;
@@ -167,6 +171,7 @@ header li {
   height: 24px;
   display: inline-block;
   position: relative;
+
 }
 
 .hamburger-inner {
@@ -204,6 +209,7 @@ header li {
 
 .hamburger--3dxy .hamburger-box {
   perspective: 80px;
+  z-index: 5;
 }
 
 .hamburger--3dxy .hamburger-inner {

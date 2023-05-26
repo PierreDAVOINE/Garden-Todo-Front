@@ -19,7 +19,7 @@ function NotificationPopUp({ notifications, setnotificationIsOn, notificationIsO
                         <button onClick={() => setnotificationIsOn(!notificationIsOn)}>
                             <X className={notificationIsOn ? 'close-icon' : 'notif-off'} />
                         </button>
-                        <h2>WARNING</h2>
+                        <h2>NOTIFICATION</h2>
                         <p>{oneNotification.message}</p>
                         <a href="/mon-espace-vert">Voir la to-do list</a>
                     </div>

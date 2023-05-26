@@ -13,9 +13,8 @@ function PlantCardGarden({
   hasPlant,
   setIsPlantModalOpen,
   userId,
+  addNewNotification
 }: handlePlantCardGardenProps) {
-
-  console.log(typeof plant, "plant");
 
   const [isNeedWater, setIsNeedWater] = useState(false);
 
@@ -44,6 +43,7 @@ function PlantCardGarden({
       console.log('Un probleme est survenu');
     } else {
       setHasPlant(hasPlant.filter((p) => p.plant_id !== plant.plant_id));
+      addNewNotification("La plante a bien été supprimée", false);
     }
   };
 
@@ -93,5 +93,6 @@ function PlantCardGarden({
       )}
     </div>
   );
+
 }
 export default PlantCardGarden;

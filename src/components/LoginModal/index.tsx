@@ -61,7 +61,7 @@ function LoginModal({
     //* Gestion de la connexion
     if (isSignup) {
       const response = await axiosInstance.post(
-        '/login',
+        '/users/login',
         {
           email: inputEmail,
           user_password: inputPassword,
@@ -117,7 +117,7 @@ function LoginModal({
         );
       } else {
         // Si tout est ok on envoie les données utilisateurs à l'API
-        const response = await axiosInstance.post('/signup', {
+        const response = await axiosInstance.post('/users/signup', {
           user_name: inputName,
           email: inputEmail,
           user_password: inputPassword,
@@ -246,8 +246,8 @@ function LoginModal({
                   !isSamePassword && inputPasswordConfirm.length > 0
                     ? 'inputError'
                     : isSamePassword && inputPasswordConfirm.length > 0
-                    ? 'inputGood'
-                    : ''
+                      ? 'inputGood'
+                      : ''
                 }
               />
             </>

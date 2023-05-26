@@ -31,8 +31,6 @@
     }
   }
 
-
-
   .close-btn {
     float: right;
   }
@@ -56,5 +54,41 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .content-modale {
+    width: 95%;
+    margin: 0;
+    margin-right: 0rem;
+    padding: 2rem 0.5rem 0.5rem 0.5rem;
+
+    h1 {
+      line-height: 1.2;
+      margin-top: 1rem;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+      flex-direction: column
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 0.2rem;
+    }
+  }
+
+  .modale-delete-user {
+    .btn-wrapper {
+      display: flex;
+      max-width: 100%;
+      flex-direction: column;
+      align-items: center
+    }
   }
 }

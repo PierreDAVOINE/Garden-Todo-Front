@@ -66,33 +66,36 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
               />
               <p className="plant__latin__name">{plant.latin_plant_name}</p>
 
-              
+
             </div>
             <div className="plant__description">
-                <p>{plant.plant_description}</p>
-              </div>
+              <p>{plant.plant_description}</p>
+            </div>
             {/* Mise en place de la classe open sur plante_caracs pour gérer le maximum weight pour qu'une partie se cache  */}
             <div className={`plant__caracs ${isOpen ? 'open' : ''}`}>
-              <div className='plant__caracs__column__1'><p>Type : {plant.plant_type}</p>
-              <p>Habitat : {plant.is_plant_ext ? 'Extérieur' : 'Intérieur'}</p>
-              <p>Origine : {plant.origin}</p>
-              <p>Vivace : {plant.is_perennial ? 'Oui' : 'Non'}</p>
-              <p>Rustique : {plant.is_rustic ? 'Oui' : 'Non'}</p>
-              <p>Ensoleillement : {plant.sunshine}</p>
-              <p>Toxique : {plant.toxicity}</p>
-              <p>Comestible : {plant.is_edible ? 'Oui' : 'Non'}</p>
-              <p>Période de plantation : {plant.seed_month_planting}</p>
-              <p>Période de récolte : {plant.harvest_time} jours</p>
-              </div>  <div className='plant__caracs__column'>  <p>Fréquence engrais : {plant.fertilizer_frequency} jours</p>
-            <p>Intervalle de rempottage : {plant.repotting_interval} jours</p>
-              <p>Intervalle d'arrosage : {plant.watering_interval} jours</p>
-              <p>Fréquence d'arrosage : {plant.watering_frequency}</p>
-              <p>Couleur : {plant.color}</p>
-              <p>Type de sol : {plant.soil_type}</p>
-              <p>Humidité : {plant.humidity} </p>
-              <p>Température minimale : {plant.min_temp} °</p>
-              <p>Température maximale : {plant.max_temp} °</p>
-              <p>Taille maximale : {plant.max_height} cm</p></div><div></div>
+              <div className='plant__caracs__column__1'>
+                <p><span className='plant__caracs_specs'>Type : </span>{plant.plant_type}</p>
+                <p><span className='plant__caracs_specs'>Habitat : </span> {plant.is_plant_ext ? 'Extérieur' : 'Intérieur'}</p>
+                <p><span className='plant__caracs_specs'>Origine : </span>{plant.origin}</p>
+                <p><span className='plant__caracs_specs'>Vivace : </span>{plant.is_perennial ? 'Oui' : 'Non'}</p>
+                <p><span className='plant__caracs_specs'>Rustique : </span>{plant.is_rustic ? 'Oui' : 'Non'}</p>
+                <p><span className='plant__caracs_specs'>Ensoleillement : </span>{plant.sunshine}</p>
+                <p><span className='plant__caracs_specs'>Toxique : </span>{plant.toxicity}</p>
+                <p><span className='plant__caracs_specs'>Comestible : </span>{plant.is_edible ? 'Oui' : 'Non'}</p>
+                <p><span className='plant__caracs_specs'>Période de plantation : </span>{plant.seed_month_planting}</p>
+                <p><span className='plant__caracs_specs'>Période de récolte : </span>{plant.harvest_time} jours</p>
+              </div>
+              <div className='plant__caracs__column'>
+                <p><span className='plant__caracs_specs'>Fréquence engrais : </span>{plant.fertilizer_frequency} jours</p>
+                <p><span className='plant__caracs_specs'>Intervalle de rempottage : </span> {plant.repotting_interval} jours</p>
+                <p><span className='plant__caracs_specs'>Intervalle d'arrosage : </span> {plant.watering_interval} jours</p>
+                <p><span className='plant__caracs_specs'>Fréquence d'arrosage : </span> {plant.watering_frequency}</p>
+                <p><span className='plant__caracs_specs'>Couleur :</span> {plant.color}</p>
+                <p><span className='plant__caracs_specs'>Type de sol : </span> {plant.soil_type}</p>
+                <p><span className='plant__caracs_specs'>Humidité : </span> {plant.humidity} </p>
+                <p><span className='plant__caracs_specs'>Température minimale : </span> {plant.min_temp} °</p>
+                <p><span className='plant__caracs_specs'>Température maximale : </span> {plant.max_temp} °</p>
+                <p><span className='plant__caracs_specs'>Taille maximale : </span> {plant.max_height} cm</p></div><div></div>
               <button onClick={handleClick}>
                 {isOpen ? '▲ Réduire ▲ ' : '▼ Agrandir ▼ '}
                 {/* Mise en place d'un handleClick sur un bouton dans la div caracs, qui gère la réduction ou l'augmentation de la taille de ma div, en relation avec isOpen */}
@@ -100,17 +103,20 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
             </div>
           </div>
         </>
-      )}
+      )
+      }
 
-      {isLogged && (
-        <div>
-          <button className="plant__button" onClick={handleAddPlant}>
-            <PlusCircle />
-            Ajouter à mon Jardin
-          </button>
-        </div>
-      )}
-    </div>
+      {
+        isLogged && (
+          <div>
+            <button className="plant__button" onClick={handleAddPlant}>
+              <PlusCircle />
+              Ajouter à mon Jardin
+            </button>
+          </div>
+        )
+      }
+    </div >
   );
 }
 

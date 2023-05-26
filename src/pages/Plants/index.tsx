@@ -53,8 +53,7 @@ function Plants({
         if (response.data) {
           // Mise a jour du message de nombre de résultats trouvé
           setSearchResultMessage(
-            `Nous avons trouvé ${response.data.length} résultat${
-              response.data.length > 1 ? 's' : ''
+            `Nous avons trouvé ${response.data.length} résultat${response.data.length > 1 ? 's' : ''
             }`
           );
           // Mise à jour du state avec les plantes trouvées

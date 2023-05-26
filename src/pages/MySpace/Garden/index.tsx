@@ -86,6 +86,7 @@ function Garden({ isLogged, hasPlant, setHasPlant, userId, addNewNotification }:
               setIsPlantModalOpen={setIsPlantModalOpen}
               setWhichPlantClicked={setWhichPlantClicked}
               userId={userId}
+              addNewNotification={(newMessage: string, status: boolean) => addNewNotification(newMessage, status)}
             />
           ))}
       </div>
