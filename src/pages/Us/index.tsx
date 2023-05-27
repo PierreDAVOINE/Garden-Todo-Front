@@ -16,8 +16,8 @@ function Us({ isLogged, setIsLoginModalOpen }: HandleUsProps) {
           <h2>Le projet</h2>
           <p>Passionnés de plantes, nous avons à coeur de proposer des services accessibles à tous, du plus débutant au spécialiste :</p>
           <ul>
-            <li>Une to-do list personnalisée</li>
-            <li>Un jardin où vous pouvez ajouter vos plantes</li>
+            <li>Une to-do list personnalisée pour suivre les besoins de vos plantes</li>
+            <li>Un espace jardin où vous pouvez ajouter vos plantes</li>
           </ul>
           <p>
             Nous avons voulu créer un outil pour vous permettre de vous occuper de vos plantes au mieux

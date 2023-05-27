@@ -1,14 +1,15 @@
 import './style.scss';
 import { useState, useEffect } from 'react';
-import { PlusCircle } from '../../../node_modules/react-feather/dist/index';
+import { Check, PlusCircle } from '../../../node_modules/react-feather/dist/index';
 import { useParams } from 'react-router-dom';
 import { axiosInstance } from '../../utils/axios';
+import { useNavigate } from 'react-router-dom';
 // creation de PlanProps pour éviter les erreurs undifined pour les données suivantes
 import { OnePlantProps, PlantAllProps } from '../../../src/@types/plants'
 
 
 function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
-
+  const navigate = useNavigate();
 
   //ajout d'un useState pour gérer le déploiement onclick d'un élément button du reste de ma div caracs
   const [isOpen, setIsOpen] = useState(false);
@@ -19,6 +20,17 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
   // useStats pour la valeur des données de plantes
   const [plant, setPlant] = useState<PlantAllProps>();
 
+  // Un state pour vérifier que la plante n'est pas déjà dans le jardin
+  const [isAddableToGarden, setIsAddableToGarden] = useState(true);
+  // un useEffect pour vérifier que la plante n'est pas déjà dans le jardin au démarrage de la page
+  useEffect(() => {
+    if (plant) {
+      const plantAlreadyHere = hasPlant.find((p) => p.plant_id === plant.id);
+      if (plantAlreadyHere) {
+        setIsAddableToGarden(false);
+      }
+    }
+  }, [plant, hasPlant]);
 
   //récupération du slug_name qui nous servira à récupérer les infos d'une plante spécifique
   const { slug_name } = useParams();
@@ -107,7 +119,7 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
       }
 
       {
-        isLogged && (
+        isLogged && isAddableToGarden && (
           <div>
             <button className="plant__button" onClick={handleAddPlant}>
               <PlusCircle />
@@ -115,6 +127,19 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
             </button>
           </div>
         )
+      }
+      {isLogged && !isAddableToGarden && (
+
+        <button
+          className="add-plant-btn in-garden"
+          title="Retirer une plante à mon espace vert"
+          onClick={() => navigate('/mon-espace-vert')}
+        >
+          <Check />
+          PLANTE DEJA DANS MON JARDIN
+        </button>
+
+      )
       }
     </div >
   );

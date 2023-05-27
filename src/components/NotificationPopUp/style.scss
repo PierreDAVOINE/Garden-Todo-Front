@@ -10,8 +10,6 @@
     align-items: flex-end;
     gap: 1rem 2rem;
     z-index: 100;
-    opacity: 0.8;
-    transition: all 0.5s ease;
 
     button svg {
         fill: #fff
@@ -35,8 +33,6 @@
     border-radius: 8px;
     -webkit-box-shadow: 1px 1px 2px 2px #9C9C9C;
     box-shadow: 1px 1px 2px 2px #9C9C9C;
-
-
 
     h2 {
         font-weight: 700;
@@ -70,6 +66,7 @@
 }
 
 .info-message {
+    max-width: fit-content;
     color: rgb(0, 0, 0);
     border: 4px solid #ebcfb0;
     background-color: #F9E9D7;
@@ -85,10 +82,7 @@
 }
 
 .notif-off {
-    transition: all 0.5s ease;
-    /*display: none;*/
-    opacity: 0;
-    position: unset;
+    display: none;
 }
 
 // ======== ================== ============ //
@@ -104,15 +98,27 @@
 
 @media screen and (max-width: 940px) {
     .wrapper-notification-box {
-        max-width: 90%;
+        max-width: 100%;
         bottom: 10px;
-        left: 10px;
+        left: 0px;
+        right: 10px;
         top: auto;
+        margin: 0 auto;
     }
 }
 
-@media screen and (max-width: 700px) {
-    .wrapper-notification-box {
+@media screen and (max-width: 740px) {
+    .box-notification {
         max-width: 90%;
+    }
+
+    .wrapper-notification-box {
+        position: fixed;
+        max-width: 100%;
+        bottom: 10px;
+        left: 0px;
+        right: 10px;
+        top: auto;
+        margin: 0 auto;
     }
 }

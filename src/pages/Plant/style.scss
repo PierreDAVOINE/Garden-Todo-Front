@@ -43,6 +43,45 @@
   align-items: center;
 }
 
+.add-plant-btn {
+  background-color: #ffffff;
+  border: none;
+  color: #1b3b2c;
+  cursor: pointer;
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.6rem;
+  border: 1px solid #1b3b2c;
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.add-plant-btn:hover {
+  fill: #6aca9f;
+  color: #6aca9f;
+  background-color: #1b3b2c;
+}
+
+.add-plant-btn svg {
+  transform: scale(1.5);
+  fill: #ffffff;
+}
+
+.add-plant-btn {
+  z-index: 99;
+}
+
+.in-garden {
+  background-color: #e5f5e6;
+}
+
+.in-garden svg {
+  fill-opacity: 0;
+}
+
 // }
 // ======== ================== ============ //
 // ========    Partie Caracs ============ //

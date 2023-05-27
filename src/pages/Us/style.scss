@@ -35,10 +35,10 @@
     }
 
     li {
-        display: flex;
-        align-items: center;
+        position: relative;
+        /*align-items: center;
         justify-content: flex-start;
-        gap: 0.8rem;
+        gap: 0.8rem;*/
         font-weight: 700;
     }
 
@@ -48,6 +48,9 @@
         background-repeat: no-repeat;
         width: 40px;
         height: 40px;
+        position: absolute;
+        left: -3rem;
+        top: 0.5rem;
     }
 
     hr {
@@ -239,6 +242,11 @@
     .us {
         flex-direction: column;
         max-width: 100%;
+
+        li::before {
+            position: absolute;
+
+        }
 
         .wrapper-team {
             display: flex;

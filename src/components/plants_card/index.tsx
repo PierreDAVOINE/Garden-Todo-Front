@@ -4,6 +4,7 @@ import { Check, PlusCircle } from 'react-feather';
 import { axiosInstance } from '../../utils/axios';
 import { HandlePlantProps } from '../../../src/@types/plants';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function PlantCard({
   plant,
@@ -13,6 +14,8 @@ function PlantCard({
   userId,
   addNewNotification,
 }: HandlePlantProps) {
+  const navigate = useNavigate();
+
   // Un state pour vérifier que la plante n'est pas déjà dans le jardin
   const [isAddableToGarden, setIsAddableToGarden] = useState(true);
 
@@ -77,15 +80,14 @@ function PlantCard({
       )}
 
       {isLogged && !isAddableToGarden && (
-        <a href="/mon-espace-vert/">
-          <button
-            className="add-plant-btn in-garden"
-            title="Retirer une plante à mon espace vert"
-          >
-            <Check />
-            PLANTE DEJA DANS MON JARDIN
-          </button>
-        </a>
+        <button
+          className="add-plant-btn in-garden"
+          title="Retirer une plante à mon espace vert"
+          onClick={() => navigate('/mon-espace-vert')}
+        >
+          <Check />
+          PLANTE DEJA DANS MON JARDIN
+        </button>
       )}
     </div>
   );
