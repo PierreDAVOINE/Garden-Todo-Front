@@ -32,11 +32,15 @@
   padding: 0 2rem 2rem 2rem;
 
   h2 {
-    font-size: 2em;
+    font-size: 1.5em;
     line-height: 1;
     margin-bottom: 2rem;
     border-bottom: 1px solid grey;
     padding-bottom: 1rem;
+
+    @media screen and (min-width: 900px) {
+      font-size: 2em;
+    }
   }
 
   .plant-data-container {
@@ -45,7 +49,7 @@
       justify-content: center;
       gap: 2rem;
 
-      & > div {
+      &>div {
         width: 48%;
       }
     }

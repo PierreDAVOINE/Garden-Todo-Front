@@ -6,6 +6,7 @@
   padding: 0 1.5rem;
   text-align: center;
   margin: auto;
+  min-height: 800px;
 
   h2 {
     font-weight: 700;
@@ -23,9 +24,11 @@
     justify-content: center;
     width: 80%;
   }
+
   img {
     width: 80%;
     border-radius: 5px;
+
     @media screen and (min-width: 1024px) {
       margin-left: 3rem;
       width: 70%;

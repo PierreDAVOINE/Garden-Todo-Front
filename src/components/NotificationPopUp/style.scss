@@ -57,22 +57,38 @@
 
 .error-message {
     color: rgb(204, 2, 2);
-    border: 4px solid rgb(204, 2, 2);
-    background-color: #ffeae5;
+    border: 2px solid rgb(204, 2, 2);
+    background-color: #f0eaea;
+
+    h2,
+    p {
+        color: #a52929
+    }
 
     a {
         color: rgb(204, 2, 2);
+    }
+
+    a:hover,
+    a:focus {
+        color: rgb(0, 0, 0);
     }
 }
 
 .info-message {
     max-width: fit-content;
     color: rgb(0, 0, 0);
-    border: 4px solid #ebcfb0;
-    background-color: #F9E9D7;
+    /*border: 4px solid #bcbcbc;*/
+    background-color: #eae6e6;
+    border: none;
 
     a {
-        color: green;
+        color: #296047;
+    }
+
+    a:hover,
+    a:focus {
+        color: #000;
     }
 }
 
@@ -82,6 +98,10 @@
 }
 
 .notif-off {
+    display: none;
+}
+
+.close-all-button {
     display: none;
 }
 
@@ -109,7 +129,11 @@
 
 @media screen and (max-width: 740px) {
     .box-notification {
-        max-width: 90%;
+        max-width: 70%;
+    }
+
+    .close-all-button {
+        display: none;
     }
 
     .wrapper-notification-box {
