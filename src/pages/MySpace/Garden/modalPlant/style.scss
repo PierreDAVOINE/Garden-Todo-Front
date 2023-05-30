@@ -20,7 +20,7 @@
 
 .content-modal {
   margin-top: 0;
-  overflow: scroll;
+  overflow: auto;
   padding: 1rem;
   width: 90%;
   height: 90%;
@@ -30,10 +30,6 @@
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 0 2rem 2rem 2rem;
-
-  @media screen and (min-width: 900px) {
-    overflow: hidden;
-  }
 
   h2 {
     font-size: 2em;
@@ -49,7 +45,7 @@
       justify-content: center;
       gap: 2rem;
 
-      &>div {
+      & > div {
         width: 48%;
       }
     }

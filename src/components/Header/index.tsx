@@ -9,7 +9,8 @@ import {
 } from '../../../node_modules/react-feather/dist/index';
 import NotificationPopUp from '../NotificationPopUp';
 import { removeUserDataFromLocalStorage } from '../../utils/user';
-import { HeaderProps } from "../../../src/@types/header";
+import { HeaderProps } from '../../../src/@types/header';
+import { useNavigate } from 'react-router-dom';
 
 function Header({
   isLogged,
@@ -19,8 +20,9 @@ function Header({
   notifications,
   setNotifications,
   setnotificationIsOn,
-  notificationIsOn
+  notificationIsOn,
 }: HeaderProps) {
+  const navigate = useNavigate();
 
   const [menuIsOpen, setMenuIsOpen] = useState(false);
 
@@ -34,6 +36,7 @@ function Header({
     setMenuIsOpen(false);
     removeUserDataFromLocalStorage();
     setIsLogged(false);
+    navigate('/');
   }
 
   return (
@@ -147,9 +150,14 @@ function Header({
           )}
         </div>
       )}
-      {
-        isLogged && notificationIsOn && <NotificationPopUp notifications={notifications} setNotifications={setNotifications} setnotificationIsOn={setnotificationIsOn} notificationIsOn={notificationIsOn} />
-      }
+      {isLogged && notificationIsOn && (
+        <NotificationPopUp
+          notifications={notifications}
+          setNotifications={setNotifications}
+          setnotificationIsOn={setnotificationIsOn}
+          notificationIsOn={notificationIsOn}
+        />
+      )}
       <div className="header__logo">
         <Link to="/" relative="path">
           <img
@@ -220,7 +228,6 @@ function Header({
           À propos
         </NavLink>
       </nav>
-
     </header>
   );
 }

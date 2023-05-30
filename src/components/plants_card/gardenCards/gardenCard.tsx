@@ -3,7 +3,7 @@ import './style.scss';
 import drops from '/img/drops.svg';
 import { axiosInstance } from '../../../utils/axios';
 import { useEffect, useState } from 'react';
-import { handlePlantCardGardenProps } from "../../../../src/@types/plants";
+import { handlePlantCardGardenProps } from '../../../../src/@types/plants';
 
 function PlantCardGarden({
   setWhichPlantClicked,
@@ -13,22 +13,20 @@ function PlantCardGarden({
   hasPlant,
   setIsPlantModalOpen,
   userId,
-  addNewNotification
+  addNewNotification,
 }: handlePlantCardGardenProps) {
-
   const [isNeedWater, setIsNeedWater] = useState(false);
 
   // On détermine au chargement du composant si la plante doit être arrosée
   useEffect(() => {
     const now = new Date();
-    // now.setDate(now.getDate() + 5);
     const nexWatering = new Date(plant.last_watering);
     nexWatering.setDate(nexWatering.getDate() + plant.watering_interval);
     if (now >= nexWatering) {
       setIsNeedWater(true);
-    }
+    } else setIsNeedWater(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [hasPlant]);
 
   const handleBtnClickOpenModal = () => {
     setWhichPlantClicked(plant);
@@ -43,7 +41,7 @@ function PlantCardGarden({
       console.log('Un probleme est survenu');
     } else {
       setHasPlant(hasPlant.filter((p) => p.plant_id !== plant.plant_id));
-      addNewNotification("La plante a bien été supprimée", false);
+      addNewNotification('La plante a bien été supprimée', false);
     }
   };
 
@@ -93,6 +91,5 @@ function PlantCardGarden({
       )}
     </div>
   );
-
 }
 export default PlantCardGarden;

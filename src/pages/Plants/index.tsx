@@ -42,29 +42,30 @@ function Plants({
     // on vérifie que le state n'est pas vide
     // si rien n'est tapé dans l'input on récupère toutes les plantes
     if (inputSearchbar.length === 0) {
+      setSearchResultMessage('');
       fetchPlants();
       return;
     }
     // On vide le state de plantes pour éviter les doublons
     setplantsData([]);
-    axiosInstance
-      .get(`/plants/search/${inputSearchbar}`)
-      .then((response) => {
-        if (response.data) {
-          // Mise a jour du message de nombre de résultats trouvé
-          setSearchResultMessage(
-            `Nous avons trouvé ${response.data.length} résultat${response.data.length > 1 ? 's' : ''
-            }`
-          );
-          // Mise à jour du state avec les plantes trouvées
-          setplantsData(response.data);
-        } else {
-          setSearchResultMessage(`Pas de plante trouvée avec ce nom !`);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    axiosInstance.get(`/plants/search/${inputSearchbar}`).then((response) => {
+      console.log('response', response);
+      if (response.data) {
+        // Mise a jour du message de nombre de résultats trouvé
+        setSearchResultMessage(
+          `Nous avons trouvé ${response.data.length} résultat${
+            response.data.length > 1 ? 's' : ''
+          }`
+        );
+        // Mise à jour du state avec les plantes trouvées
+        setplantsData(response.data);
+      } else {
+        setSearchResultMessage(`Pas de plante trouvée avec ce nom !`);
+      }
+    });
+    // .catch((error) => {
+    //   console.log(error);
+    // });
   };
 
   return (

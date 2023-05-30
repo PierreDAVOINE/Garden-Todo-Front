@@ -7,8 +7,7 @@ import Error404 from './Error404';
 import Notice from './Notice';
 import Account from './Account';
 import Us from './Us';
-import { PagesProps } from '../../src/@types/pages'
-
+import { PagesProps } from '../../src/@types/pages';
 
 function Pages({
   setIsLoginModalOpen,
@@ -20,7 +19,7 @@ function Pages({
   userId,
   tasks,
   setTasks,
-  addNewNotification
+  addNewNotification,
 }: PagesProps) {
   // Commentaire
   return (
@@ -47,7 +46,9 @@ function Pages({
               setHasPlant={setHasPlant}
               hasPlant={hasPlant}
               userId={userId}
-              addNewNotification={(newMessage, status) => addNewNotification(newMessage, status)}
+              addNewNotification={(newMessage, status) =>
+                addNewNotification(newMessage, status)
+              }
             />
           }
         />
@@ -78,7 +79,11 @@ function Pages({
               userId={userId}
               tasks={tasks}
               setTasks={setTasks}
-              addNewNotification={(newMessage, status) => addNewNotification(newMessage, status)}
+              addNewNotification={(newMessage, status) =>
+                addNewNotification(newMessage, status)
+              }
+              setIsLoginModalOpen={setIsLoginModalOpen}
+              setIsSignup={setIsSignup}
             />
           }
         />
@@ -108,6 +113,7 @@ function Pages({
 
         {/* Les autres routes sont redirigées vers notre page 404 */}
         <Route path="/*" element={<Error404 />} />
+        <Route path="/404" element={<Error404 />} />
       </Routes>
     </>
   );

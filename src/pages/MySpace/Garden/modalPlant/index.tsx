@@ -10,7 +10,7 @@ function ModalPlant({
   setIsPlantModalOpen,
   whichPlantClicked,
   userId,
-  addNewNotification
+  addNewNotification,
 }: HandlePlantModalProps) {
   const [isNeedWater, setIsNeedWater] = useState(false);
 
@@ -23,7 +23,10 @@ function ModalPlant({
     const oldLastWatering = new Date(
       whichPlantClicked.last_watering
     ).toLocaleDateString('fr-FR');
-    console.log('Récup du dernier watering !', typeof (whichPlantClicked.last_watering));
+    console.log(
+      'Récup du dernier watering !',
+      typeof whichPlantClicked.last_watering
+    );
     setLastWatering(oldLastWatering);
 
     const now = new Date();
@@ -50,16 +53,13 @@ function ModalPlant({
       const newPlantList = [...hasPlant].map((p) =>
         p.plant_id === whichPlantClicked.plant_id
           ? {
-            ...p,
-            last_watering: new Date().toString(),
-          }
+              ...p,
+              last_watering: new Date().toString(),
+            }
           : p
       );
-      addNewNotification("La plante a bien été ajoutée", false);
-      console.log(newPlantList)
-      // TODO : vérifier après merge erreur typage newPlantList ?
+      addNewNotification('La plante a bien été ajoutée', false);
       setHasPlant(newPlantList);
-      console.log(typeof newPlantList, 'newPlantList')
       setIsNeedWater(false);
       addNewNotification(`La plante a été arrosée`, false);
       const now = new Date();
@@ -72,7 +72,20 @@ function ModalPlant({
     }
   };
 
-  // useEffect(() => console.log(new Date(hasPlant[0].last_watering)), [hasPlant]);
+  const handleRemovePlant = async () => {
+    const response = await axiosInstance.delete(
+      `/garden/${userId}/${whichPlantClicked.plant_id}`
+    );
+    if (response.status !== 200) {
+      console.log('Un probleme est survenu');
+    } else {
+      setHasPlant(
+        hasPlant.filter((p) => p.plant_id !== whichPlantClicked.plant_id)
+      );
+      addNewNotification('La plante a bien été supprimée', false);
+      setIsPlantModalOpen(false);
+    }
+  };
 
   return (
     <div className="modal-plant">
@@ -127,12 +140,7 @@ function ModalPlant({
               <button
                 className="btn-action"
                 title="Supprimer une plante de mon jardin"
-                onClick={() => {
-                  setHasPlant(
-                    hasPlant.filter((p) => p.id !== whichPlantClicked.id)
-                  );
-                  setIsPlantModalOpen(false);
-                }}
+                onClick={() => handleRemovePlant()}
               >
                 <MinusCircle /> SUPPRIMER DU JARDIN
               </button>

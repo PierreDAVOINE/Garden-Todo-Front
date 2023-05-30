@@ -25,6 +25,7 @@ function PlantCard({
     if (plantAlreadyHere) {
       setIsAddableToGarden(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hasPlant]);
 
   // handleAddPlant() permet l'ajout d'une plante au jardin

@@ -41,7 +41,6 @@ $screen-size-big: 1980px;
 // ======== ================== ============ //
 // ======== Partie About============ //
 // ======== ================== ============ //
-// TODO: deskstop version
 .about {
   background-color: #799f7a;
   color: white;
@@ -49,7 +48,6 @@ $screen-size-big: 1980px;
   align-items: center;
   margin: 1.5rem;
   border-radius: 10px;
-
 
   @media screen and (min-width: $screen-size) {
     display: flex;

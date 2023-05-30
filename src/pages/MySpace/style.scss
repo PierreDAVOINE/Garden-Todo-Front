@@ -5,6 +5,31 @@
 .my-space {
   margin: 0 auto;
   width: 100%;
+  &__not-connected {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 48vh;
+    &-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    &-button {
+      margin-top: 1rem;
+      padding: 0.5rem 1.5rem;
+      width: 20rem;
+      background: black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 2rem;
+      &:hover {
+        background: #799f7a;
+        color: black;
+      }
+    }
+  }
   @media screen and (min-width: 1500px) {
     display: flex;
     justify-content: center;

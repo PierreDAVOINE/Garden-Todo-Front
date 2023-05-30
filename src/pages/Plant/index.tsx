@@ -1,12 +1,14 @@
 import './style.scss';
 import { useState, useEffect } from 'react';
-import { Check, PlusCircle } from '../../../node_modules/react-feather/dist/index';
+import {
+  Check,
+  PlusCircle,
+} from '../../../node_modules/react-feather/dist/index';
 import { useParams } from 'react-router-dom';
 import { axiosInstance } from '../../utils/axios';
 import { useNavigate } from 'react-router-dom';
 // creation de PlanProps pour éviter les erreurs undifined pour les données suivantes
-import { OnePlantProps, PlantAllProps } from '../../../src/@types/plants'
-
+import { OnePlantProps, PlantAllProps } from '../../../src/@types/plants';
 
 function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
   const navigate = useNavigate();
@@ -40,10 +42,14 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
     const getData = async () => {
       //mise en place du fetch avec le lien du .env et du slug_name
       const response = await axiosInstance.get(`/plants/${slug_name}`); // pour voir si les données sont bien recues par le fetch
+      console.log('response', response);
+      // Si l'API ne trouve pas de données, on renvoie à la page 404
+      response.status !== 200 && navigate('/404');
       setPlant(response.data); // mise a jour de la variable plant
     };
+
     getData(); // utilisé pour le  chargement des données dans le rendu initial
-    // creation d'une tableau vide pour que les data soient rechhargées
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug_name]);
 
   const handleAddPlant = async () => {
@@ -77,37 +83,115 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
                 title={plant.plant_name}
               />
               <p className="plant__latin__name">{plant.latin_plant_name}</p>
-
-
             </div>
             <div className="plant__description">
               <p>{plant.plant_description}</p>
             </div>
             {/* Mise en place de la classe open sur plante_caracs pour gérer le maximum weight pour qu'une partie se cache  */}
             <div className={`plant__caracs ${isOpen ? 'open' : ''}`}>
-              <div className='plant__caracs__column__1'>
-                <p><span className='plant__caracs_specs'>Type : </span>{plant.plant_type}</p>
-                <p><span className='plant__caracs_specs'>Habitat : </span> {plant.is_plant_ext ? 'Extérieur' : 'Intérieur'}</p>
-                <p><span className='plant__caracs_specs'>Origine : </span>{plant.origin}</p>
-                <p><span className='plant__caracs_specs'>Vivace : </span>{plant.is_perennial ? 'Oui' : 'Non'}</p>
-                <p><span className='plant__caracs_specs'>Rustique : </span>{plant.is_rustic ? 'Oui' : 'Non'}</p>
-                <p><span className='plant__caracs_specs'>Ensoleillement : </span>{plant.sunshine}</p>
-                <p><span className='plant__caracs_specs'>Toxique : </span>{plant.toxicity}</p>
-                <p><span className='plant__caracs_specs'>Comestible : </span>{plant.is_edible ? 'Oui' : 'Non'}</p>
-                <p><span className='plant__caracs_specs'>Période de plantation : </span>{plant.seed_month_planting}</p>
-                <p><span className='plant__caracs_specs'>Période de récolte : </span>{plant.harvest_time} jours</p>
+              <div className="plant__caracs__column__1">
+                <p>
+                  <span className="plant__caracs_specs">Type : </span>
+                  {plant.plant_type}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Habitat : </span>{' '}
+                  {plant.is_plant_ext ? 'Extérieur' : 'Intérieur'}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Origine : </span>
+                  {plant.origin}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Vivace : </span>
+                  {plant.is_perennial ? 'Oui' : 'Non'}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Rustique : </span>
+                  {plant.is_rustic ? 'Oui' : 'Non'}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Ensoleillement : </span>
+                  {plant.sunshine}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Toxique : </span>
+                  {plant.toxicity}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Comestible : </span>
+                  {plant.is_edible ? 'Oui' : 'Non'}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Période de plantation :{' '}
+                  </span>
+                  {plant.seed_month_planting}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Période de récolte :{' '}
+                  </span>
+                  {plant.harvest_time} jours
+                </p>
               </div>
-              <div className='plant__caracs__column'>
-                <p><span className='plant__caracs_specs'>Fréquence engrais : </span>{plant.fertilizer_frequency} jours</p>
-                <p><span className='plant__caracs_specs'>Intervalle de rempottage : </span> {plant.repotting_interval} jours</p>
-                <p><span className='plant__caracs_specs'>Intervalle d'arrosage : </span> {plant.watering_interval} jours</p>
-                <p><span className='plant__caracs_specs'>Fréquence d'arrosage : </span> {plant.watering_frequency}</p>
-                <p><span className='plant__caracs_specs'>Couleur :</span> {plant.color}</p>
-                <p><span className='plant__caracs_specs'>Type de sol : </span> {plant.soil_type}</p>
-                <p><span className='plant__caracs_specs'>Humidité : </span> {plant.humidity} </p>
-                <p><span className='plant__caracs_specs'>Température minimale : </span> {plant.min_temp} °</p>
-                <p><span className='plant__caracs_specs'>Température maximale : </span> {plant.max_temp} °</p>
-                <p><span className='plant__caracs_specs'>Taille maximale : </span> {plant.max_height} cm</p></div><div></div>
+              <div className="plant__caracs__column">
+                <p>
+                  <span className="plant__caracs_specs">
+                    Fréquence engrais :{' '}
+                  </span>
+                  {plant.fertilizer_frequency} jours
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Intervalle de rempottage :{' '}
+                  </span>{' '}
+                  {plant.repotting_interval} jours
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Intervalle d'arrosage :{' '}
+                  </span>{' '}
+                  {plant.watering_interval} jours
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Fréquence d'arrosage :{' '}
+                  </span>{' '}
+                  {plant.watering_frequency}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Couleur :</span>{' '}
+                  {plant.color}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Type de sol : </span>{' '}
+                  {plant.soil_type}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">Humidité : </span>{' '}
+                  {plant.humidity}{' '}
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Température minimale :{' '}
+                  </span>{' '}
+                  {plant.min_temp} °
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Température maximale :{' '}
+                  </span>{' '}
+                  {plant.max_temp} °
+                </p>
+                <p>
+                  <span className="plant__caracs_specs">
+                    Taille maximale :{' '}
+                  </span>{' '}
+                  {plant.max_height} cm
+                </p>
+              </div>
+              <div></div>
               <button onClick={handleClick}>
                 {isOpen ? '▲ Réduire ▲ ' : '▼ Agrandir ▼ '}
                 {/* Mise en place d'un handleClick sur un bouton dans la div caracs, qui gère la réduction ou l'augmentation de la taille de ma div, en relation avec isOpen */}
@@ -115,21 +199,17 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
             </div>
           </div>
         </>
-      )
-      }
+      )}
 
-      {
-        isLogged && isAddableToGarden && (
-          <div>
-            <button className="plant__button" onClick={handleAddPlant}>
-              <PlusCircle />
-              Ajouter à mon Jardin
-            </button>
-          </div>
-        )
-      }
+      {isLogged && isAddableToGarden && (
+        <div>
+          <button className="plant__button" onClick={handleAddPlant}>
+            <PlusCircle />
+            Ajouter à mon Jardin
+          </button>
+        </div>
+      )}
       {isLogged && !isAddableToGarden && (
-
         <button
           className="add-plant-btn in-garden"
           title="Retirer une plante à mon espace vert"
@@ -138,10 +218,8 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
           <Check />
           PLANTE DEJA DANS MON JARDIN
         </button>
-
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 }
 

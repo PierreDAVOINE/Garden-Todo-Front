@@ -9,7 +9,7 @@ import {
   CheckSquare,
 } from '../../../../node_modules/react-feather/dist/index';
 import { axiosInstance } from '../../../utils/axios';
-import { TodoProps } from '../../../../src/@types/tasks'
+import { TodoProps } from '../../../../src/@types/tasks';
 
 function Todo({ userId, tasks, setTasks }: TodoProps) {
   // newTaskText permet de connaître a tout moment la valeur de l'input
@@ -82,8 +82,11 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
     }
   };
 
+  const [isDraggableDisabled, setIsDraggableDisabled] = useState(false);
+
   //* Update d'une description de tâche
   const startEditingTask = (taskId: number, task_description: string) => {
+    setIsDraggableDisabled(true);
     setEditingTaskId(taskId); // taskId = modification d'une tache par ID
     setEditingTaskText(task_description); //Text = texte à modifier
   };
@@ -156,9 +159,8 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
             <ReactSortable
               list={tasks}
               setList={setTasks}
-              // onChange={(order, sortable, e) => handleChangePosition(order, e)}
-              // onChange={handleChangeOrder}
               onEnd={() => setIsUpdating(!isUpdating)}
+              options={{ disabled: isDraggableDisabled }}
             >
               {tasks.map((task) => (
                 // créer un li avec une key id spécifique
