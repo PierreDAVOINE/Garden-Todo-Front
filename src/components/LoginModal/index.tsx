@@ -123,7 +123,6 @@ function LoginModal({
           user_password: inputPassword,
           city: inputCity,
         });
-        console.log(response);
         //Si la réponse de l'API est différente de 200, alors il y a eu une erreur lors de la création de compte
         if (response.status != 200) {
           setErrorMessage(
@@ -194,6 +193,7 @@ function LoginModal({
                 type="text"
                 name="name"
                 id="name"
+                placeholder="Ex : Dupont"
                 value={inputName}
                 onChange={(e) => handleChangeInputValue(e)}
                 required
@@ -214,6 +214,7 @@ function LoginModal({
             type="email"
             name="email"
             id="email"
+            placeholder="Ex : dupont@dupond.fr"
             value={inputEmail}
             onChange={(e) => handleChangeInputValue(e)}
             required

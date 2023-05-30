@@ -33,8 +33,6 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
         console.log('Un problème est survenu');
       } else {
         const newTask = response.data;
-
-        console.log(newTask);
         setTasks([...tasks, newTask]); // création de newTask à la suite de Tasks
         setNewTaskText('');
       }
@@ -65,9 +63,7 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
       // ce qui entraine creation de task
       task.id === taskId ? { ...task, statut: e.target.checked } : task
     );
-    console.log('Tâches mise a jour : ', updatedTasks);
     const theUptdatedTask = updatedTasks.find((task) => task.id === taskId);
-    console.log('La tâche mise a jour : ', theUptdatedTask);
     // On envoie la tâche mise à jour à l'API
     if (!theUptdatedTask) return;
     const response = await axiosInstance.patch(`/tasks/${userId}/${taskId}`, {
@@ -82,11 +78,8 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
     }
   };
 
-  const [isDraggableDisabled, setIsDraggableDisabled] = useState(false);
-
   //* Update d'une description de tâche
   const startEditingTask = (taskId: number, task_description: string) => {
-    setIsDraggableDisabled(true);
     setEditingTaskId(taskId); // taskId = modification d'une tache par ID
     setEditingTaskText(task_description); //Text = texte à modifier
   };
@@ -102,9 +95,7 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
       // ce qui entraine creation de task
       task.id === taskId ? { ...task, task_description: editingTaskText } : task
     );
-    console.log('Tâches mise a jour : ', updatedTasks);
     const theUptdatedTask = updatedTasks.find((task) => task.id === taskId);
-    console.log('La tâche mise a jour : ', theUptdatedTask);
     // On envoie la tâche mise à jour à l'API
     if (!theUptdatedTask) return;
     const response = await axiosInstance.patch(`/tasks/${userId}/${taskId}`, {
@@ -152,7 +143,6 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
     <div className="todolist__container">
       <div className="tasks__list__container">
         <h2 className="todolist__heading">Ma Todolist</h2>
-        {/* //!  SORTABLE ----------------------------------------------------- */}
         {/* utilisation de reactSortable, dans la création d'élément tache  */}
         <ul>
           {tasks && (
@@ -160,7 +150,6 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
               list={tasks}
               setList={setTasks}
               onEnd={() => setIsUpdating(!isUpdating)}
-              options={{ disabled: isDraggableDisabled }}
             >
               {tasks.map((task) => (
                 // créer un li avec une key id spécifique

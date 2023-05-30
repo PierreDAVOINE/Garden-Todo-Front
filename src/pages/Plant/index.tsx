@@ -42,7 +42,6 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
     const getData = async () => {
       //mise en place du fetch avec le lien du .env et du slug_name
       const response = await axiosInstance.get(`/plants/${slug_name}`); // pour voir si les données sont bien recues par le fetch
-      console.log('response', response);
       // Si l'API ne trouve pas de données, on renvoie à la page 404
       response.status !== 200 && navigate('/404');
       setPlant(response.data); // mise a jour de la variable plant
@@ -60,7 +59,7 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
     if (response.status === 403) {
       console.log('Identifiants incorrects');
     } else if (response.status !== 200) {
-      console.log('Un probleme est survenue');
+      console.log('Un problème est survenu');
     } else {
       console.log(response.data);
       const plantListFromUserGarden = [...hasPlant, response.data];
@@ -70,7 +69,6 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
 
   return (
     <div className="plant">
-      {/* {console.log("fetch", plant)} */}
       {/* Rendu des données suivantes si plant existe */}
       {plant && (
         <>

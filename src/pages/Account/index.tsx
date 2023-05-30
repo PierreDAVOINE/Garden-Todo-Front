@@ -20,7 +20,6 @@ import { AccountProps, Userdataprops } from '../../../src/@types/user';
 function Account({ userId, setIsLogged, isLogged }: AccountProps) {
   const navigate = useNavigate();
 
-  // LES STATES --------------------------------------------------
   // State pour les données utilisateur
   const [userData, setUserData] = useState<Userdataprops>({
     id: 0,
@@ -37,7 +36,6 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
   const [isEditPassword, setIsEditPassword] = useState(false);
   // un state pour définir si les mots de passe sont egaux
   const [isPasswdEqual, setIsPasswdEqual] = useState(false);
-
   // state pour la confirmation de password
   const [passwordConfirm, setPasswordConfirm] = useState('');
   //un state pour gérer la modale et son affichage pour la suppression de compte
@@ -53,7 +51,6 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
       if (userId !== 0 || userId !== undefined) {
         // Alors on récupère ses données à l'API via cet ID
         const response = await axiosInstance.get(`/users/${userId}`);
-        console.log(response.data[0]);
         // eslint-disable-next-line react-hooks/exhaustive-deps
         setUserData({
           id: response.data[0].id,
@@ -76,16 +73,17 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
     }
   }, [userId]);
 
+  // Mise à jour du state userData à chaque changement de valeur dans le formulaire 
   const handleChangeForm = (
     e: ChangeEvent<HTMLInputElement>,
     field: keyof Userdataprops
   ): void => {
     const updatedUserData = { ...userData };
-    console.log(updatedUserData, ' updatedUserData');
     updatedUserData[field] = e.target.value;
     setUserData(updatedUserData);
   };
 
+  // Gestion de la comparaison des mots de passe
   useEffect(() => {
     if (userData.password.length > 0 && passwordConfirm.length > 0) {
       console.log(
@@ -95,7 +93,6 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
         passwordConfirm
       );
       if (passwordConfirm === userData.password) {
-        //console.log('passwords et confirm password sont egaux');
         setIsPasswdEqual(true);
         setErrMessage('');
       } else {
@@ -106,12 +103,9 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [passwordConfirm]);
 
-  // Etape 3 : Gestion du submit du formulaire
-
-  // UPDATE USER -------------------------------------------------------------
+  // Gestion du submit du formulaire
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('début du submit');
 
     // ! ON TESTE LES DONNEES AVANT ENVOI AU BACK
     if (
@@ -140,16 +134,11 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
         city: userData.city,
         user_password: userData.password,
       });
-      console.log('status de la reponse update : ', patchResponse.status);
       if (patchResponse.status != 200) {
-        console.log(
-          "Une erreur est survenue lors de la mise à jour de l'utilisateur."
-        );
         setErrMessage(
           "Une erreur est survenue lors de la mise à jour de l'utilisateur."
         );
       } else {
-        console.log("Tout s'est bien déroulé dans l'update");
         setIsEditName(false);
         setIsEditVille(false);
         setIsEditEmail(false);
@@ -158,7 +147,7 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
     }
   };
 
-  // DELETE USER -------------------------------------------------------------
+  // Gestion de la suppression du compte
   const handleDeleteUser = async () => {
     const deleteResponse = await axiosInstance.delete(`/users/${userId}`);
     if (deleteResponse.status != 200) {

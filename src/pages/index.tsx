@@ -21,7 +21,7 @@ function Pages({
   setTasks,
   addNewNotification,
 }: PagesProps) {
-  // Commentaire
+
   return (
     <>
       <Routes>

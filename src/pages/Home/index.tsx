@@ -2,6 +2,7 @@ import './style.scss';
 import { HomeProps } from '../../../src/@types/home';
 
 function Home({ setIsLoginModalOpen, setIsSignup, isLogged }: HomeProps) {
+  // Gestion de l'ouverture de la modal de connexion
   const handleOpeningModal = (isAlreadyRegistered: boolean) => {
     isAlreadyRegistered ? setIsSignup(true) : setIsSignup(false);
     setIsLoginModalOpen(true);

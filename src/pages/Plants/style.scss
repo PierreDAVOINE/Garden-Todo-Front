@@ -120,7 +120,7 @@
 .plant-main-searchbyname button {
   background-color: #296047;
   color: #fff;
-  margin: 0 1rem;
+  margin: 0 0 0 1rem;
   text-shadow: 1px 1px 1px #0d2118;
   cursor: pointer;
 }
@@ -212,7 +212,7 @@ details>summary::-webkit-details-marker {
 // ========  MOBILE VERSION    ============ //
 // ======== ================== ============ //
 
-@media screen and (max-width: 840px) {
+@media screen and (max-width: 900px) {
   .plants {
     max-width: 95%;
     margin: 0 auto;
@@ -225,6 +225,10 @@ details>summary::-webkit-details-marker {
 
     .plant-main-searchbyname {
       max-width: 100%;
+    }
+
+    .plant-main-searchbyname button {
+      margin: 0;
     }
   }
 

@@ -13,7 +13,6 @@ function PlantForm({
 
   function handleSearchSubmit(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    console.log('submit');
     fetchOnePlant();
   }
 

@@ -49,12 +49,11 @@ function Plants({
     // On vide le state de plantes pour éviter les doublons
     setplantsData([]);
     axiosInstance.get(`/plants/search/${inputSearchbar}`).then((response) => {
-      console.log('response', response);
+      console.log('response :', response);
       if (response.data) {
         // Mise a jour du message de nombre de résultats trouvé
         setSearchResultMessage(
-          `Nous avons trouvé ${response.data.length} résultat${
-            response.data.length > 1 ? 's' : ''
+          `Nous avons trouvé ${response.data.length} résultat${response.data.length > 1 ? 's' : ''
           }`
         );
         // Mise à jour du state avec les plantes trouvées
@@ -63,9 +62,7 @@ function Plants({
         setSearchResultMessage(`Pas de plante trouvée avec ce nom !`);
       }
     });
-    // .catch((error) => {
-    //   console.log(error);
-    // });
+
   };
 
   return (

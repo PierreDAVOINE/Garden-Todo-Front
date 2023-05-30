@@ -12,10 +12,11 @@ function ModalPlant({
   userId,
   addNewNotification,
 }: HandlePlantModalProps) {
+  // isNeedWater permet de savoir si la plante doit être arrosée
   const [isNeedWater, setIsNeedWater] = useState(false);
 
+  // lastWatering et nextWatering permettent de savoir quand la plante a été arrosée pour la dernière fois et quand elle doit être arrosée
   const [lastWatering, setLastWatering] = useState('');
-
   const [nextWatering, setNextWatering] = useState('');
 
   // On détermine au chargement du composant si la plante doit être arrosée
@@ -23,10 +24,6 @@ function ModalPlant({
     const oldLastWatering = new Date(
       whichPlantClicked.last_watering
     ).toLocaleDateString('fr-FR');
-    console.log(
-      'Récup du dernier watering !',
-      typeof whichPlantClicked.last_watering
-    );
     setLastWatering(oldLastWatering);
 
     const now = new Date();
@@ -53,9 +50,9 @@ function ModalPlant({
       const newPlantList = [...hasPlant].map((p) =>
         p.plant_id === whichPlantClicked.plant_id
           ? {
-              ...p,
-              last_watering: new Date().toString(),
-            }
+            ...p,
+            last_watering: new Date().toString(),
+          }
           : p
       );
       addNewNotification('La plante a bien été ajoutée', false);

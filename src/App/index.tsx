@@ -67,7 +67,6 @@ function App() {
         } else {
           // S'il y a un token encore valide, on passer isLogged à true.
           setIsLogged(userData.logged);
-          //console.log("récupération de l'id");
           setUserId(id);
         }
       } catch (error) {
@@ -80,7 +79,6 @@ function App() {
   const getTodo = async () => {
     //utilisation d'une async pour fetch
     try {
-      console.log("fetch syur l'id : ", userId);
       const response = await axiosInstance.get(
         `/tasks/${userId}` //fetch des datas sur cet url
       );
@@ -100,7 +98,6 @@ function App() {
     if (response.status !== 200) {
       console.log('Un probleme est survenue');
     } else {
-      console.log(response.data);
       setHasPlant(response.data);
     }
   };
@@ -113,7 +110,7 @@ function App() {
     setTimeout(() => {
       setNotifications([])
       setnotificationIsOn(false)
-    }, 5200);
+    }, 5000);
     setNotifications(notifyArray); // On ajoute l'ancien et le nouveau contenu au state
   }
 
