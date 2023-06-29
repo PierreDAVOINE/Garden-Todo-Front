@@ -45,25 +45,29 @@ function ModalPlant({
       `/garden/${userId}/${whichPlantClicked.plant_id}`
     );
     if (response.status !== 200) {
-      console.log('Un probleme est survenu');
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
     } else {
       const newPlantList = [...hasPlant].map((p) =>
         p.plant_id === whichPlantClicked.plant_id
           ? {
-            ...p,
-            last_watering: new Date().toString(),
-          }
+              ...p,
+              last_watering: new Date().toString(),
+            }
           : p
       );
-      addNewNotification('La plante a bien été ajoutée', false);
       setHasPlant(newPlantList);
       setIsNeedWater(false);
       addNewNotification(`La plante a été arrosée`, false);
+      // On récupère la date du jour
       const now = new Date();
+      // On ajoute le nombre de jours d'arrosage à la date du jour
       const theNextWatering = new Date();
       theNextWatering.setDate(
         theNextWatering.getDate() + whichPlantClicked.watering_interval
       );
+      // On met à jour les states des dates d'arrosage
       setLastWatering(now.toLocaleDateString('fr-FR'));
       setNextWatering(theNextWatering.toLocaleDateString('fr-FR'));
     }
@@ -74,12 +78,14 @@ function ModalPlant({
       `/garden/${userId}/${whichPlantClicked.plant_id}`
     );
     if (response.status !== 200) {
-      console.log('Un probleme est survenu');
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
     } else {
       setHasPlant(
         hasPlant.filter((p) => p.plant_id !== whichPlantClicked.plant_id)
       );
-      addNewNotification('La plante a bien été supprimée', false);
+      addNewNotification(response.data.message, false);
       setIsPlantModalOpen(false);
     }
   };
@@ -90,8 +96,7 @@ function ModalPlant({
         <button
           title="Fermer"
           className="close-btn"
-          onClick={() => setIsPlantModalOpen(false)}
-        >
+          onClick={() => setIsPlantModalOpen(false)}>
           <X />
         </button>
         <h2>{whichPlantClicked.plant_name}</h2>
@@ -130,15 +135,13 @@ function ModalPlant({
               <button
                 className="btn-action"
                 title="J'ai arrosé ma plante"
-                onClick={handleUpdatePlant}
-              >
+                onClick={handleUpdatePlant}>
                 <Droplet /> J'AI ARROSÉ !
               </button>
               <button
                 className="btn-action"
                 title="Supprimer une plante de mon jardin"
-                onClick={() => handleRemovePlant()}
-              >
+                onClick={() => handleRemovePlant()}>
                 <MinusCircle /> SUPPRIMER DU JARDIN
               </button>
             </div>

@@ -3,12 +3,6 @@ export interface LoginResponse {
   pseudo: string;
   token: string;
 }
-// export interface HeaderProps {
-//   isLogged: boolean;
-//   setIsLoginModalOpen: (value: boolean) => void;
-//   setIsSignup: (value: boolean) => void;
-//   setIsLogged: (value: boolean) => void;
-// }
 
 export interface LoginModalProps {
   isSignup: boolean;
@@ -36,6 +30,10 @@ export interface Userdataprops extends IObjectKeys {
   password: string;
 }
 
-// export interface AccessKeyUserdataprops {
-//   keyName: keyof Userdataprops;
-// }
+export interface Userdatasignprops extends IObjectKeys {
+  name: string;
+  city: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
+}

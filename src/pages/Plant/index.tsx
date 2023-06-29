@@ -10,7 +10,13 @@ import { useNavigate } from 'react-router-dom';
 // creation de PlanProps pour éviter les erreurs undifined pour les données suivantes
 import { OnePlantProps, PlantAllProps } from '../../../src/@types/plants';
 
-function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
+function Plant({
+  isLogged,
+  userId,
+  hasPlant,
+  setHasPlant,
+  addNewNotification,
+}: OnePlantProps) {
   const navigate = useNavigate();
 
   //ajout d'un useState pour gérer le déploiement onclick d'un élément button du reste de ma div caracs
@@ -43,7 +49,10 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
       //mise en place du fetch avec le lien du .env et du slug_name
       const response = await axiosInstance.get(`/plants/${slug_name}`); // pour voir si les données sont bien recues par le fetch
       // Si l'API ne trouve pas de données, on renvoie à la page 404
-      response.status !== 200 && navigate('/404');
+      if (response.status !== 200) {
+        addNewNotification(response.data.message, false);
+        navigate('/404');
+      }
       setPlant(response.data); // mise a jour de la variable plant
     };
 
@@ -56,14 +65,14 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
       plantId: plant?.id,
     });
 
-    if (response.status === 403) {
-      console.log('Identifiants incorrects');
-    } else if (response.status !== 200) {
-      console.log('Un problème est survenu');
+    if (response.status !== 200) {
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
     } else {
-      console.log(response.data);
       const plantListFromUserGarden = [...hasPlant, response.data];
       setHasPlant(plantListFromUserGarden);
+      addNewNotification('La plante a bien été ajoutée', false);
     }
   };
 
@@ -211,8 +220,7 @@ function Plant({ isLogged, userId, hasPlant, setHasPlant }: OnePlantProps) {
         <button
           className="add-plant-btn in-garden"
           title="Retirer une plante à mon espace vert"
-          onClick={() => navigate('/mon-espace-vert')}
-        >
+          onClick={() => navigate('/mon-espace-vert')}>
           <Check />
           PLANTE DEJA DANS MON JARDIN
         </button>

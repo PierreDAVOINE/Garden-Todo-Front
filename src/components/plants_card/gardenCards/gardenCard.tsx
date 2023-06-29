@@ -38,7 +38,9 @@ function PlantCardGarden({
       `/garden/${userId}/${plant.plant_id}`
     );
     if (response.status !== 200) {
-      console.log('Un probleme est survenu');
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
     } else {
       setHasPlant(hasPlant.filter((p) => p.plant_id !== plant.plant_id));
       addNewNotification('La plante a bien été supprimée', false);
@@ -74,16 +76,14 @@ function PlantCardGarden({
             className="garden-plant-btn"
             onClick={handleBtnClickOpenModal}
             name={plant.plant_name}
-            title="voir la plante"
-          >
+            title="voir la plante">
             <Eye />
             CONSULTER
           </button>
           <button
             className="garden-plant-btn"
             title="Supprimer une plante de mon jardin"
-            onClick={() => handleRemovePlant()}
-          >
+            onClick={() => handleRemovePlant()}>
             <MinusCircle />
             SUPPRIMER
           </button>

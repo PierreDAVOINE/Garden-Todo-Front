@@ -13,9 +13,6 @@ function Plants({
   userId,
   addNewNotification,
 }: PlantsListProps) {
-  /* permet de masquer ou afficher les filtres !!! FONCTIONNALITE AVANCEE !!!!!*/
-  // const [searchIsOpen, setsearchIsOpen] = useState(false);
-
   /* Recupère la valeur de l'input pour la recherche de plante par nom */
   const [inputSearchbar, setinputSearchbar] = useState('');
 
@@ -49,20 +46,19 @@ function Plants({
     // On vide le state de plantes pour éviter les doublons
     setplantsData([]);
     axiosInstance.get(`/plants/search/${inputSearchbar}`).then((response) => {
-      console.log('response :', response);
-      if (response.data) {
+      if (response.status !== 200) {
+        setSearchResultMessage(response.data.message);
+      } else {
         // Mise a jour du message de nombre de résultats trouvé
         setSearchResultMessage(
-          `Nous avons trouvé ${response.data.length} résultat${response.data.length > 1 ? 's' : ''
+          `Nous avons trouvé ${response.data.length} résultat${
+            response.data.length > 1 ? 's' : ''
           }`
         );
         // Mise à jour du state avec les plantes trouvées
         setplantsData(response.data);
-      } else {
-        setSearchResultMessage(`Pas de plante trouvée avec ce nom !`);
       }
     });
-
   };
 
   return (

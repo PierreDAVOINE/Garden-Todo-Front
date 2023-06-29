@@ -31,24 +31,22 @@ function PlantCard({
   // handleAddPlant() permet l'ajout d'une plante au jardin
   const handleAddPlant = async () => {
     // Si la plante n'est pas encore présente dans le jardin alors on l'ajoute
-    const plantAlreadyHere = hasPlant.find((p) => p.plant_id === plant.id);
-    if (!plantAlreadyHere) {
-      //setIsAddableToGarden(false);
+    if (!isAddableToGarden) {
+      addNewNotification(`Cette plante est déjà dans votre jardin !`, false);
+    } else {
       const response = await axiosInstance.post(`/garden/${userId}`, {
         plantId: plant.id,
       });
-
-      if (response.status === 403) {
-        console.log('Identifiants incorrects');
-      } else if (response.status !== 200) {
-        console.log('Un probleme est survenue');
+      if (response.status !== 200) {
+        response.data.message
+          ? addNewNotification(response.data.message, true)
+          : addNewNotification('Une erreur est survenue', true);
       } else {
         const plantListFromUserGarden = [...hasPlant, response.data];
         setHasPlant(plantListFromUserGarden);
+        addNewNotification(`Plante ajoutée au jardin !`, false);
+        setIsAddableToGarden(false);
       }
-    } else {
-      addNewNotification(`Plante ajoutée au jardin !`, false);
-      setIsAddableToGarden(true);
     }
   };
 
@@ -73,8 +71,7 @@ function PlantCard({
         <button
           className="add-plant-btn"
           title="ajouter une plante à mon espace vert"
-          onClick={() => handleAddPlant()}
-        >
+          onClick={() => handleAddPlant()}>
           <PlusCircle />
           AJOUTER À MON JARDIN
         </button>
@@ -84,8 +81,7 @@ function PlantCard({
         <button
           className="add-plant-btn in-garden"
           title="Retirer une plante à mon espace vert"
-          onClick={() => navigate('/mon-espace-vert')}
-        >
+          onClick={() => navigate('/mon-espace-vert')}>
           <Check />
           PLANTE DEJA DANS MON JARDIN
         </button>

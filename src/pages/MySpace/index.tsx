@@ -28,14 +28,12 @@ function MySpace({
           </h2>
           <button
             className="my-space__not-connected-button"
-            onClick={() => handleOpeningModal(false)}
-          >
+            onClick={() => handleOpeningModal(false)}>
             S'inscrire
           </button>
           <button
             className="my-space__not-connected-button"
-            onClick={() => handleOpeningModal(true)}
-          >
+            onClick={() => handleOpeningModal(true)}>
             Se connecter
           </button>
         </div>
@@ -51,7 +49,12 @@ function MySpace({
               addNewNotification(newMessage, status)
             }
           />
-          <Todo userId={userId} tasks={tasks} setTasks={setTasks} />
+          <Todo
+            userId={userId}
+            tasks={tasks}
+            setTasks={setTasks}
+            addNewNotification={addNewNotification}
+          />
         </>
       )}
     </div>

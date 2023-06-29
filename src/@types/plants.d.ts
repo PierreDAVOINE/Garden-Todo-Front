@@ -111,6 +111,7 @@ export interface OnePlantProps {
   userId: number;
   hasPlant: Iwatering[];
   setHasPlant: (arrayOfPlants: Iwatering[]) => void;
+  addNewNotification: (string: string, boolean: boolean) => void;
 }
 
 interface HandlePlanFormProps {
