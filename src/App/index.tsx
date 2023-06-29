@@ -11,13 +11,11 @@ import { useEffect, useState } from 'react';
 import { LoginResponse } from '../@types/user';
 import jwtDecode from 'jwt-decode';
 import { axiosInstance } from '../utils/axios';
-import { TaskType } from '../../src/@types/tasks'
-import { Iwatering } from "../../src/@types/plants";
-import { NotificationsInfo } from "../../src/@types/notifications";
+import { TaskType } from '../../src/@types/tasks';
+import { Iwatering } from '../../src/@types/plants';
+import { NotificationsInfo } from '../../src/@types/notifications';
 
 function App() {
-
-
   // isLogged permet de savoir si l'utilisateur est connecté
   const [isLogged, setIsLogged] = useState(false);
 
@@ -32,7 +30,9 @@ function App() {
   const [isSignup, setIsSignup] = useState(false);
 
   // Un state définir pour les messages de notification et leur type (erreur ou normal)
-  const [notifications, setNotifications] = useState<NotificationsInfo[] | []>([]);
+  const [notifications, setNotifications] = useState<NotificationsInfo[] | []>(
+    []
+  );
 
   // tasks contient les tâches de la todolist de l'utilisateur
   const [tasks, setTasks] = useState<TaskType[]>([]);
@@ -45,6 +45,52 @@ function App() {
   const [notificationIsOn, setnotificationIsOn] = useState(true);
 
   let userData = {} as LoginResponse | null;
+
+  // getTodo() permet de récupérer les taches de todolist grâce a l'id de l'utilisateur
+  const getTodo = async () => {
+    //utilisation d'une async pour fetch
+    try {
+      const response = await axiosInstance.get(
+        `/tasks/${userId}` //fetch des datas sur cet url
+      );
+      if (response.status !== 200) {
+        response.data.message
+          ? addNewNotification(response.data.message, true)
+          : addNewNotification('Une erreur est survenue', true);
+      } else {
+        setTasks(response.data);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // getGarden() permet de récupérer les plantes d'un utiliseur grâce à son ID
+  const getGarden = async () => {
+    const response = await axiosInstance.get(`/garden/${userId}`);
+    if (response.status !== 200) {
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
+    } else {
+      setHasPlant(response.data);
+    }
+  };
+
+  // addNewNotification() permet d'ajouter une nouvelle notification au state
+  // status permet de savoir si la notification est une erreur ou non
+  // true = erreur, false = normal
+  const addNewNotification = (newMessage: string, status = false) => {
+    const notifyArray = [...notifications]; // on crée une copie du contenu du state
+    notifyArray.push({ message: newMessage, isError: status }); // On ne peut pas ajouter directement le nouveau contenu au spread operator, il faut décomposer
+    setnotificationIsOn(true);
+    setNotifications(notifyArray);
+    setTimeout(() => {
+      setNotifications([]);
+      setnotificationIsOn(false);
+    }, 5000);
+    setNotifications(notifyArray); // On ajoute l'ancien et le nouveau contenu au state
+  };
 
   // Au chargemement de APP on effectue les vérifications d'authentification
   useEffect(() => {
@@ -75,51 +121,12 @@ function App() {
     }
   }, []);
 
-  // getTodo() permet de récupérer les taches de todolist grâce a l'id de l'utilisateur
-  const getTodo = async () => {
-    //utilisation d'une async pour fetch
-    try {
-      const response = await axiosInstance.get(
-        `/tasks/${userId}` //fetch des datas sur cet url
-      );
-      if (response.status !== 200) {
-        console.error('problème interne');
-      } else {
-        setTasks(response.data);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // getGarden() permet de récupérer les plantes d'un utiliseur grâce à son ID
-  const getGarden = async () => {
-    const response = await axiosInstance.get(`/garden/${userId}`);
-    if (response.status !== 200) {
-      console.log('Un probleme est survenue');
-    } else {
-      setHasPlant(response.data);
-    }
-  };
-
-  const addNewNotification = (newMessage: string, status = false) => {
-    const notifyArray = [...notifications]; // on crée une copie du contenu du state
-    notifyArray.push({ message: newMessage, isError: status }); // On ne peut pas ajouter directement le nouveau contenu au spread operator, il faut décomposer
-    setnotificationIsOn(true)
-    setNotifications(notifyArray)
-    setTimeout(() => {
-      setNotifications([])
-      setnotificationIsOn(false)
-    }, 5000);
-    setNotifications(notifyArray); // On ajoute l'ancien et le nouveau contenu au state
-  }
-
   // Si isLogged devient true, on récupère les données de l'utilisateur
   useEffect(() => {
     if (isLogged) {
       getTodo();
       getGarden();
-      addNewNotification("Bonjour bienvenue ! ", false)
+      addNewNotification('Bonjour bienvenue ! ', false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLogged]);
@@ -155,7 +162,9 @@ function App() {
         setHasPlant={setHasPlant}
         tasks={tasks}
         setTasks={setTasks}
-        addNewNotification={(newMessage, status) => addNewNotification(newMessage, status)}
+        addNewNotification={(newMessage, status) =>
+          addNewNotification(newMessage, status)
+        }
       />
       <Footer />
     </div>

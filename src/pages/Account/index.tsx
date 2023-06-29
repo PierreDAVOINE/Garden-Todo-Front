@@ -14,8 +14,8 @@ import {
 import ModaleDeleteUser from '../../components/DeleteUserModal';
 import { useNavigate } from 'react-router-dom';
 import { removeUserDataFromLocalStorage } from '../../utils/user';
-import validator from 'validator';
 import { AccountProps, Userdataprops } from '../../../src/@types/user';
+import { dataUserValidationUpdate } from '../../utils/validate';
 
 function Account({ userId, setIsLogged, isLogged }: AccountProps) {
   const navigate = useNavigate();
@@ -73,7 +73,7 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
     }
   }, [userId]);
 
-  // Mise à jour du state userData à chaque changement de valeur dans le formulaire 
+  // Mise à jour du state userData à chaque changement de valeur dans le formulaire
   const handleChangeForm = (
     e: ChangeEvent<HTMLInputElement>,
     field: keyof Userdataprops
@@ -105,27 +105,12 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
 
   // Gestion du submit du formulaire
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    setErrMessage('');
     e.preventDefault();
-
-    // ! ON TESTE LES DONNEES AVANT ENVOI AU BACK
-    if (
-      userData.password.length > 1 &&
-      (userData.password.length < 6 || userData.password !== passwordConfirm)
-    ) {
-      setErrMessage('Le password doit faire plus de 6 caractères');
-    } else if (!userData.name.match(/^[\p{L}\p{M}'-]+$/u)) {
-      setErrMessage('Ton nom ne doit pas contenir de caractère spéciaux.');
-    } else if (userData.name.length < 3) {
-      setErrMessage('Ton nom doit faire plus de deux lettres.');
-    } else if (
-      userData.city &&
-      !userData.city.match(/^[a-zA-ZÀ-ÖØ-öø-ÿ\s-]*$/u)
-    ) {
-      setErrMessage(
-        'La ville contient des caractère spéciaux non autorisé ou a un nom trop court.'
-      );
-    } else if (!validator.isEmail(userData.email)) {
-      setErrMessage('Ton adresse email est incomplète');
+    // ON TESTE LES DONNEES AVANT ENVOI AU BACK
+    const errors = dataUserValidationUpdate(userData);
+    if (errors.length > 0) {
+      setErrMessage(errors[0]);
     } else {
       const patchResponse = await axiosInstance.patch(`/users/${userId}`, {
         id: userData.id,
@@ -211,8 +196,7 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
                     title="Éditer mon nom"
                     onClick={() => {
                       setIsEditName(!isEditName);
-                    }}
-                  >
+                    }}>
                     <Edit3 /> Éditer
                   </button>
                   {isEditName && (
@@ -246,8 +230,7 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
                     title="Éditer ma ville"
                     onClick={() => {
                       setIsEditVille(!isEditVille);
-                    }}
-                  >
+                    }}>
                     <Edit3 /> Éditer
                   </button>
                   {isEditVille && (
@@ -281,8 +264,7 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
                     title="Éditer mon email"
                     onClick={() => {
                       setIsEditEmail(!isEditEmail);
-                    }}
-                  >
+                    }}>
                     <Edit3 /> Éditer
                   </button>
                   {isEditEmail && (
@@ -337,16 +319,14 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
                     title="Éditer mon mot de passe"
                     onClick={() => {
                       setIsEditPassword(!isEditPassword);
-                    }}
-                  >
+                    }}>
                     <Edit3 /> Éditer
                   </button>
                   {isEditPassword && (
                     <button
                       type="submit"
                       title="Valider les modifications"
-                      disabled={!passwordConfirm ? true : false}
-                    >
+                      disabled={!passwordConfirm ? true : false}>
                       <CheckCircle /> Valider
                     </button>
                   )}
@@ -360,8 +340,7 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
           }
           <button
             onClick={() => setIsDeleteModalOpen(!isDeleteModalOpen)}
-            className="yes"
-          >
+            className="yes">
             <XCircle />
             SUPPRIMER MON COMPTE
           </button>

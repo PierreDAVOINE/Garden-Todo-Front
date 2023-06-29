@@ -11,7 +11,7 @@ import {
 import { axiosInstance } from '../../../utils/axios';
 import { TodoProps } from '../../../../src/@types/tasks';
 
-function Todo({ userId, tasks, setTasks }: TodoProps) {
+function Todo({ userId, tasks, setTasks, addNewNotification }: TodoProps) {
   // newTaskText permet de connaître a tout moment la valeur de l'input
   const [newTaskText, setNewTaskText] = useState('');
   // editingTaskId permet de stocker l'id de la tâche en cours d'édition et ainsi de savoir que nous sommes en "mode edition" lorsque l'id est différent de 0
@@ -30,7 +30,9 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
         position: tasks.length + 1,
       });
       if (response.status !== 200) {
-        console.log('Un problème est survenu');
+        response.data.message
+          ? addNewNotification(response.data.message, true)
+          : addNewNotification('Une erreur est survenue', true);
       } else {
         const newTask = response.data;
         setTasks([...tasks, newTask]); // création de newTask à la suite de Tasks
@@ -43,7 +45,9 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
   const deleteTask = async (taskId: number) => {
     const response = await axiosInstance.delete(`/tasks/${userId}/${taskId}`);
     if (response.status !== 200) {
-      console.log('Un problème est survenu');
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
     } else {
       const updatedTasks = tasks.filter((task) => task.id !== taskId);
       setTasks(updatedTasks);
@@ -59,8 +63,7 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
     const oldTasks = [...tasks];
     const updatedTasks = oldTasks.map((task) =>
       // vérifier si id bien égal à celle de la tache, si c'est le cas, on modifie la tache
-      // recupérer les propriété de la tache modifiée puis mettre à jour avec valeur
-      // ce qui entraine creation de task
+      // recupérer les propriété de la tache modifiée puis mettre à jour avec la valeur
       task.id === taskId ? { ...task, statut: e.target.checked } : task
     );
     const theUptdatedTask = updatedTasks.find((task) => task.id === taskId);
@@ -72,7 +75,9 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
       updatePosition: theUptdatedTask.position,
     });
     if (response.status !== 200) {
-      console.log('Un problème est survenu');
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
     } else {
       setTasks(updatedTasks);
     }
@@ -92,7 +97,6 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
     const updatedTasks = oldTasks.map((task) =>
       // vérifier si id bien égal à celle de la tache, si c'est le cas, on modifie la tache
       // recupérer les propriété de la tache modifiée puis mettre à jour avec valeur
-      // ce qui entraine creation de task
       task.id === taskId ? { ...task, task_description: editingTaskText } : task
     );
     const theUptdatedTask = updatedTasks.find((task) => task.id === taskId);
@@ -104,7 +108,9 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
       updatePosition: theUptdatedTask.position,
     });
     if (response.status !== 200) {
-      console.log('Un problème est survenu');
+      response.data.message
+        ? addNewNotification(response.data.message, true)
+        : addNewNotification('Une erreur est survenue', true);
     } else {
       setTasks(updatedTasks);
       setEditingTaskId(0);
@@ -132,7 +138,9 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
         newTasks,
       });
       if (response.status !== 200) {
-        console.log('Un problème est survenu');
+        response.data.message
+          ? addNewNotification(response.data.message, true)
+          : addNewNotification('Une erreur est survenue', true);
       } else {
         setTasks(newTasks);
       }
@@ -149,8 +157,7 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
             <ReactSortable
               list={tasks}
               setList={setTasks}
-              onEnd={() => setIsUpdating(!isUpdating)}
-            >
+              onEnd={() => setIsUpdating(!isUpdating)}>
               {tasks.map((task) => (
                 // créer un li avec une key id spécifique
                 <li key={task.id} className="task__item">
@@ -184,8 +191,7 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
                     <span
                       className={
                         task.statut ? 'task__text checked' : 'task__text'
-                      }
-                    >
+                      }>
                       {task.task_description}
                     </span> //pour récupérer la description texte de la tâche
                   )}
@@ -195,16 +201,14 @@ function Todo({ userId, tasks, setTasks }: TodoProps) {
                         onClick={() =>
                           startEditingTask(task.id, task.task_description)
                         }
-                        className="action__button"
-                      >
+                        className="action__button">
                         <Edit />
                       </button>
 
                       {/* Supprimer la tâche via ID quand on clique sur le bouton delete */}
                       <button
                         onClick={() => deleteTask(task.id)}
-                        className="action__button_delete"
-                      >
+                        className="action__button_delete">
                         <Trash2 />
                       </button>
                     </>

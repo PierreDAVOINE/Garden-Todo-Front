@@ -10,7 +10,8 @@
   color: white;
   text-align: left;
   border-radius: 8px;
-  background: url('https://res.cloudinary.com/dtzbumqvq/image/upload/c_scale,w_1200/v1683099279/pexels-alena-yanovich-11425770_ed5aus.jpg') no-repeat;
+  background: url('https://res.cloudinary.com/dtzbumqvq/image/upload/c_scale,w_1200/v1683099279/pexels-alena-yanovich-11425770_ed5aus.jpg')
+    no-repeat;
   background-color: #799f7a;
   background-position: right 0px bottom 0px;
   background-size: contain;
@@ -51,7 +52,7 @@
   }
 
   .user-infos {
-    font-family: "Playfair Display", "Roboto", serif;
+    font-family: 'Playfair Display', 'Roboto', serif;
     font-weight: 400;
   }
 
@@ -114,7 +115,6 @@
   }
 
   .error-msg {
-
     background-color: rgb(255 159 149);
     color: #272b29;
     padding: 0.6rem;
@@ -147,15 +147,13 @@
   }
 }
 
-@media screen and (max-width: 1655px) {
+@media screen and (max-width: 2570px) {
   .account {
     .password-check__container {
       justify-content: flex-start;
       flex-direction: column;
-      align-items: flex-start
+      align-items: flex-start;
     }
-
-
 
     .password-element {
       flex-direction: column;
@@ -165,7 +163,7 @@
 
 @media screen and (max-width: 1345px) {
   .account {
-    background-image: none
+    background-image: none;
   }
 }
 
@@ -191,7 +189,6 @@
       flex-direction: column;
     }
   }
-
 }
 
 .hide {
@@ -205,7 +202,6 @@
 .good {
   border: 4px solid rgb(76, 146, 79);
 }
-
 
 @keyframes rotation {
   from {

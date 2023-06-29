@@ -21,7 +21,6 @@ function Pages({
   setTasks,
   addNewNotification,
 }: PagesProps) {
-
   return (
     <>
       <Routes>
@@ -63,6 +62,9 @@ function Pages({
               userId={userId}
               setHasPlant={setHasPlant}
               hasPlant={hasPlant}
+              addNewNotification={(newMessage, status) =>
+                addNewNotification(newMessage, status)
+              }
             />
           }
         />
