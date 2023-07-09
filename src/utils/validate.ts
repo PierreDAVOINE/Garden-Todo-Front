@@ -25,9 +25,10 @@ export const emailValidation = (email: string) => {
 
 // Vdalidation d'un mot de passe
 export const passwordValidation = (password: string) => {
-  // cette regex permet de vérifier que le mot de passe contient au moins 6 caractères, une majuscule et un caractère spécial
+  // cette regex permet de vérifier que le mot de passe contient entre 8 et 64 caractères, une majuscule, un chiffre et un caractère spécial
+
   const regex = new RegExp(
-    '^(?=.*[A-Z])(?=.*[!?@#$%^&*()_+])[a-zA-Z0-9!?@#$%^&*()_+-]{6,}$'
+    '^(?=.*[A-Z])(?=.*[0-9])(?=.*[!?@#$%^&*()_+])[a-zA-Z0-9!?@#$%^&*()_+-]{8,64}$'
   );
 
   return regex.test(password);
@@ -44,21 +45,17 @@ export const dataUserValidation = (dataUser: Userdatasignprops) => {
       'Le nom doit contenir au moins 2 caractères, sans caractères spéciaux'
     );
   }
-
   if (!cityValidation(city)) {
     errors.push('La ville ne doit pas contenir de caractères spéciaux');
   }
-
   if (!emailValidation(email)) {
     errors.push("L'email n'est pas valide");
   }
-
   if (!passwordValidation(password)) {
     errors.push(
-      'Le mot de passe doit contenir au moins 6 caractères, une majuscule et un caractère spécial'
+      'Le mot de passe doit contenir entre 8 et 64 caractères, au moins un chiffre, au moins une majuscule et au moins un caractère spécial'
     );
   }
-
   if (password !== passwordConfirm) {
     errors.push('Les mots de passe ne sont pas identiques');
   }

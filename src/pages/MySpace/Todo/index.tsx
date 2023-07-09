@@ -134,6 +134,7 @@ function Todo({ userId, tasks, setTasks, addNewNotification }: TodoProps) {
       for (let i = 0; i < newTasks.length; i++) {
         newTasks[i].position = i + 1;
       }
+      console.log(newTasks);
       const response = await axiosInstance.patch(`/tasks/${userId}`, {
         newTasks,
       });
@@ -227,7 +228,7 @@ function Todo({ userId, tasks, setTasks, addNewNotification }: TodoProps) {
           <input // input pour la  création d'une nouvelle tache
             id="send"
             type="text"
-            maxLength={23}
+            // maxLength={23}
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)} // pour que la description Text soit prise en compte
             className="task__input"

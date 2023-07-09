@@ -45,10 +45,6 @@ function LoginModal({
     setUserData(newUserData);
   };
 
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-
   // handleSubmit permet soit de gérer l'inscription soit la connexion du user
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -148,7 +144,10 @@ function LoginModal({
 
         <img src="/img/gardentodo-logo1.png" alt="Gardern to do logo" />
         <h2>{isSignup ? 'Connexion' : 'Inscription'}</h2>
-        <p>Inscrivez-vous afin d'accéder à votre jardin</p>
+        <p>
+          {isSignup ? 'Connectez-vous' : 'Inscrivez-vous'} afin d'accéder à
+          votre jardin
+        </p>
 
         {/* Switch pour passer de la modale "inscription" à la modale "connexion" et inversement */}
         <p>
