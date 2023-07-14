@@ -120,9 +120,13 @@ function Account({ userId, setIsLogged, isLogged }: AccountProps) {
         user_password: userData.password,
       });
       if (patchResponse.status != 200) {
-        setErrMessage(
-          "Une erreur est survenue lors de la mise à jour de l'utilisateur."
-        );
+        if (patchResponse.data.message) {
+          setErrMessage(patchResponse.data.message);
+        } else {
+          setErrMessage(
+            "Une erreur est survenue lors de la mise à jour de l'utilisateur."
+          );
+        }
       } else {
         setIsEditName(false);
         setIsEditVille(false);
